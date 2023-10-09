@@ -1,0 +1,67 @@
+export const getNPCState = async (npcId) => {
+  try {
+    const mockNPC = {
+      name: 'Josefina "Josie" Blackwood\n',
+      description:
+        'Josefina Blackwood grew up in a small mining town on Earth, dreaming of exploration and adventure among the stars. Born into a family of hardworking miners, she soon developed a knack for navigating treacherous underground tunnels and extracting valuable resources. Her sharp wit and resourcefulness earned her the nickname "Josie" among her friends.\n\nAs the space rock made of lithium entered the galaxy, Josefina saw it as an opportunity to leave her mundane life behind and embark on a thrilling journey into the unknown. Equipped with her trusty laser cutter and a determination to strike it rich, she joined a band of fellow miners, ready to make their mark in the cosmos.\n\nJosefina\'s spirited personality often shines through as she fearlessly navigates the challenges of space mining. Her agility and knowledge of underground operations make her an invaluable asset within the team. Though she can be reserved at first, her natural leadership abilities and strong sense of camaraderie soon earn her the respect and admiration of her peers.\n\nDriven by her quest for adventure and the chance to uncover the secrets hidden within the lithium rock, Josefina embraces her role as a modern-day space cowboy. With her bouncy auburn hair tucked under a worn-out hat and a determination etched into her eyes, she sets her sights on the vastness of the cosmos, ready to make her own mark in the annals of space mining history.',
+      health: 7,
+      credits: 25,
+      supplies: 4,
+      food: 4,
+      maxHealth: 10,
+      suppliesCost: 1,    
+      foodCost: 1,
+      barCost: 2,
+      launchSupplyMissionCost: 5,
+      currentLocaltion: "Home",
+    };
+
+    const availableFunctions = [
+      {
+        actionToTake: "goToBar",
+        locationName: "Bar",
+        description:
+          "Socialization point, helps develop character personality. The Ganymede bar is the only place to learn what other space cowboys are up to. Cannot be at the bar already to go to bar. Cannot be on a supply mission to go to bar.",
+        arguments: [""],
+      },
+      {
+        actionToTake: "goToHome",
+        locationName: "Home",
+        description:
+          "Home is where our space cowboys rest. By visiting home, you'll increase health by 2 but reduce food by 2. You cannot already be at home to choose to go here. You cannot be on a supply mission to go here.",
+        arguments: [""],
+      },
+      {
+        actionToTake: "goToSupplyDepot",
+        locationName: "Supply Depot",
+        description:
+          "The supply depot is where you can buy and sell supplies. Supplies are bought and sold 1-to-1, meaning if you sell 1 supply, you get 1 credit or if you sell 1 supply, you get 1 credit. You can also launch a supply mission here. The cost to launch a mission is 5 credits. The supply depot is the only place you can go if you are already on a supply mission. You cannot go to the supply depot if you are already at the supply depot.",
+        arguments: [""],
+      },
+      {
+        actionToTake: "buySupplies",
+        locationName: "Supply Depot",
+        description:
+          "Supplies are necessary for launching future supply missions. Without supplies, you launch mission wouldn't be successful. Supplies cost 1 credit to get 1 supply. You can only buy supplies if you are at the supply depot. You must have credits > 0.",
+        arguments: [""],
+      },
+      {
+        actionToTake: "sellSupplies",
+        locationName: "Supply Depot",
+        description:
+          "Selling supplies gives you credits. Credits can be used to launch a mission or visit the bar. Each supply you sell generates 1 credit and reduces your supply inventory by 1. You must be at the supply depot to sell supplies. You must have supplies > 0.",
+      },
+      {
+        actionToTake: "launchSupplyMission",
+        locationName: "Supply Depot",
+        description:
+          "A supply mission is the best way to build up a supply inventory without having to buy supplies. It is also the only way to build up your food inventory. A supply mission will yield 10 supplies and 10 food. The cost to launch the mission is 5 credits. You must be at the supply depot to launch a mission and you must have a credit balance of at least 5.",
+      },
+    ];
+
+    return { mockNPC, availableFunctions };
+  } catch (error) {
+    console.log(`Error getting NPC state: ${error}`);
+    throw error;
+  }
+};
