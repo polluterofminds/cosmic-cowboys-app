@@ -7,8 +7,10 @@ const config = {
   apiKey: process.env.ALCHEMY_KEY,
   network: Network.ETH_GOERLI,
 };
+const operatorAbi = require("../../services/operatorAbi.json").abi
 const alchemy = new Alchemy(config);
 
+const operatorContract = new ethers.Contract(process.env.OPERATOR_CONTRACT_ADDRESS, operatorAbi, wallet)
 
 
 export default async function handler(req, res) {
@@ -22,9 +24,15 @@ export default async function handler(req, res) {
       let mergedNpcData = [];
 
       for (let npc of npcs) {
-        let newNpc = { ...npc }
+        let newNpc = {
+          name: npc.title,
+          description: npc.description,
+          maxHealth: 10
+        }
 
-        console.log(npc)
+        /* const npcStats = await operatorContract.getNPCStats(npc.tokenId)
+        newNpc.health = npcStats[0].toNumber()
+        newNpc.location = npcStats[1] */
 
         const tba = tokenboundClient.getAccount({
           tokenContract: process.env.NPC_CONTRACT_ADDRESS,
@@ -35,11 +43,17 @@ export default async function handler(req, res) {
 
         const tbaCurrencyBalance = await alchemy.core.getTokenBalances(tba, [process.env.CURRENCY_CONTRACT_ADDRESS])
 
-        newNpc.balance = tbaCurrencyBalance
+        newNpc.credits = tbaCurrencyBalance.tokenBalances[0].tokenBalance
 
         const tbaItems = await alchemy.nft.getNftsForOwner(tba)
 
-        newNpc.inventory = tbaItems
+        for (let i = 0; i < tbaItems.ownedNfts.length; i++) {
+          if (tbaItems.ownedNfts[i].title === "Space Slop") {
+            newNpc.food = tbaItems.ownedNfts[i].balance
+          } else if (tbaItems.ownedNfts[i].title === "Jupiter's Junk") {
+            newNpc.supplies = tbaItems.ownedNfts[i].balance
+          }
+        }
 
         mergedNpcData.push(newNpc)
       }
