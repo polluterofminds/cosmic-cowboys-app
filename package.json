@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tokenbound/sdk": "^0.3.9",
     "@xmtp/xmtp-js": "^11.1.1",
+    "alchemy-sdk": "^2.10.1",
     "ethers": "^6.7.1",
     "next": "13.5.4",
     "openai": "^4.11.1",
