@@ -30,9 +30,15 @@ export default async function handler(req, res) {
           maxHealth: 10
         }
 
-        /* const npcStats = await operatorContract.getNPCStats(npc.tokenId)
-        newNpc.health = npcStats[0].toNumber()
-        newNpc.location = npcStats[1] */
+        const npcStats = await operatorContract.getNPCStats(npc.tokenId)
+        const parsedResult = {
+          bigIntValue: Number(npcStats[0]),
+          stringValue: npcStats[1]
+        };
+
+        newNpc.health = parsedResult.bigIntValue
+        newNpc.location = parsedResult.stringValue
+
 
         const tba = tokenboundClient.getAccount({
           tokenContract: process.env.NPC_CONTRACT_ADDRESS,
@@ -43,7 +49,8 @@ export default async function handler(req, res) {
 
         const tbaCurrencyBalance = await alchemy.core.getTokenBalances(tba, [process.env.CURRENCY_CONTRACT_ADDRESS])
 
-        newNpc.credits = tbaCurrencyBalance.tokenBalances[0].tokenBalance
+        const tbaCurrencyBalanceReadable = tbaCurrencyBalance.tokenBalances[0].tokenBalance / 10 ** 18
+        newNpc.credits = tbaCurrencyBalanceReadable
 
         const tbaItems = await alchemy.nft.getNftsForOwner(tba)
 
