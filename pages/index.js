@@ -6,10 +6,13 @@ import InnerContent from "./components/InnerContent";
 import SelectMinerScreen from "./components/SelectMinerScreen/index";
 import { useState } from "react";
 import ChatInterface from "./components/ChatInterface";
+import MainScreen from "./components/MainScreen";
+import AuthScreen from "./components/AuthScreen";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home({ miners }) {
+  const [authenticated, setAuthenticated] = useState(null);
   const [selectedMiner, setSelectedMiner] = useState(miners[0]);
   const [chatting, setChatting] = useState(false);
 
@@ -24,21 +27,12 @@ export default function Home({ miners }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="min-h-screen min-w-screen pb-8 pt-40">
-        <Logo />  
-        {chatting ? (
-          <ChatInterface
-            miners={miners}
-            selectedMiner={selectedMiner}
-            setSelectedMiner={setSelectedMiner}
-          />
-        ) : (
-          <SelectMinerScreen
-            miners={miners}
-            setSelectedMiner={setSelectedMiner}
-            selectedMiner={selectedMiner}
-          />
-        )}
+      <div className="">        
+        {
+          authenticated ? 
+          <MainScreen chatting={chatting} miners={miners} setSelectedMiner={setSelectedMiner} selectedMiner={selectedMiner} /> : 
+          <AuthScreen setAuthenticated={setAuthenticated} />
+        }
       </div>
     </>
   );

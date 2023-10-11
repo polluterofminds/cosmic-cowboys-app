@@ -14,7 +14,7 @@
 </g>
 <defs>
 <filter id="filter0_bd_0_1" x="-68.9715" y="-61.0001" width="1575.97" height="883" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feFlood floodOpacity="0" result="BackgroundImageFix"/>
 <feGaussianBlur in="BackgroundImageFix" stdDeviation="45.7143"/>
 <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_0_1"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
@@ -26,19 +26,19 @@
 <feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow_0_1" result="shape"/>
 </filter>
 <filter id="filter1_b_0_1" x="-66.7752" y="-13.7389" width="211.866" height="210.826" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feFlood floodOpacity="0" result="BackgroundImageFix"/>
 <feGaussianBlur in="BackgroundImageFix" stdDeviation="45.7143"/>
 <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_0_1"/>
 <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_0_1" result="shape"/>
 </filter>
 <filter id="filter2_b_0_1" x="1295.41" y="-59.7389" width="211.866" height="210.826" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feFlood floodOpacity="0" result="BackgroundImageFix"/>
 <feGaussianBlur in="BackgroundImageFix" stdDeviation="45.7143"/>
 <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_0_1"/>
 <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_0_1" result="shape"/>
 </filter>
 <filter id="filter3_b_0_1" x="-67.7752" y="611.413" width="211.866" height="210.826" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feFlood floodOpacity="0" result="BackgroundImageFix"/>
 <feGaussianBlur in="BackgroundImageFix" stdDeviation="45.7143"/>
 <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_0_1"/>
 <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_0_1" result="shape"/>
