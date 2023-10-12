@@ -9,7 +9,7 @@ import RightTab from "../tabs/RightTab";
 import LargeScreenLeft from "./LargeScreenLeft";
 import Vitals from "./Vitals";
 
-const LargeScreenRight = ({ miners, selectedMiner }) => {
+const LargeScreenRight = ({ miners, selectedMiner, setChatting }) => {
   return (
     <div className="m-0 w-[60%]">
       <div>
@@ -32,6 +32,7 @@ const LargeScreenRight = ({ miners, selectedMiner }) => {
                     </GradientHeading>
                     <button
                       type="button"
+                      onClick={() => setChatting(true)}
                       className="hover:bg-grey-500 ml-2 mr-8 inline-flex items-center justify-center rounded-md bg-btnPrimary px-6 py-1 text-sm font-semibold text-white shadow-sm outline-none border border-primary"
                     >
                       <span className="text-xl">ENGAGE</span>

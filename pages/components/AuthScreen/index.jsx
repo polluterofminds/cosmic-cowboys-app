@@ -4,11 +4,11 @@ import GradientHeading from "../Typography/GradientHeading";
 import WelcomeLines from "../WelcomeLines";
 import Card from "../backgrounds/Card";
 
-const AuthScreen = ({ setAuthenticated }) => {
+const AuthScreen = ({ setAuthenticated, login, logout, userInfo, isLoggedIn }) => {
   return (
-    <div className="align-center m-auto flex h-screen w-3/4 items-center justify-center">
-      <div className="w-1/2">
-        <img src="/Logo.png" alt="Cosmic Cowboys" className="h-96" />
+    <div className="align-center m-auto flex lg:flex-row flex-col h-screen w-3/4 items-center justify-center">
+      <div className="lg:w-1/2">
+        <img src="/Logo.png" alt="Cosmic Cowboys" className="lg:h-96 h-64 lg:ml-0 -ml-8" />
       </div>
       <div className="w-1/2">
         <LeftCard customClasses="p-6 border-b-lg">
@@ -33,7 +33,7 @@ const AuthScreen = ({ setAuthenticated }) => {
                 </p>
                 <button
                   type="button"
-                  onClick={() => setAuthenticated(true)}
+                  onClick={login}
                   className="hover:bg-grey-500 ml-2 mr-8 mt-4 inline-flex items-center justify-center rounded-md border border-primary bg-btnPrimary px-6 py-1 text-sm font-semibold text-white shadow-sm outline-none"
                 >
                   <span className="text-xl">CONNECT</span>

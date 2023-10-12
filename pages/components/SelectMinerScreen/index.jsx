@@ -9,12 +9,12 @@ import RightTab from "../tabs/RightTab";
 import LargeScreenLeft from "./LargeScreenLeft";
 import LargeScreenRight from "./LargeScreenRight";
 
-const SelectMinerScreen = ({ miners, setSelectedMiner, selectedMiner }) => {
+const SelectMinerScreen = ({ miners, setSelectedMiner, selectedMiner, setChatting }) => {
   return (
     <div className="w-screen">
       <div className="m-auto hidden min-h-[90vh] w-[85%] items-end lg:flex">
         <LargeScreenLeft miners={miners} setSelectedMiner={setSelectedMiner} />
-        <LargeScreenRight miners={miners} selectedMiner={selectedMiner} />
+        <LargeScreenRight miners={miners} selectedMiner={selectedMiner} setChatting={setChatting} />
       </div>
     </div>
   );

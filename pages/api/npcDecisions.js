@@ -35,5 +35,7 @@ export default async function handler(req, res) {
       console.log(error);
       res.status(500).send("Action error");
     }
+  } else {
+    
   }
 }
