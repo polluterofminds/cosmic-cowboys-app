@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@pinata/sdk": "^2.1.0",
     "@safe-global/auth-kit": "^1.2.1",
     "@tokenbound/sdk": "^0.3.9",
     "@web3auth/base": "^4.3.0",

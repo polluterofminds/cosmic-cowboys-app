@@ -14,6 +14,8 @@ import {
   WALLET_ADAPTERS
 } from '@web3auth/base'
 import { getNPCState } from "@/services/npc";
+import { Client } from "@xmtp/xmtp-js";
+const { ethers } = require("ethers");
 
 const connectedHandler = (data) => console.log('CONNECTED', data)
 const disconnectedHandler = (data) => console.log('DISCONNECTED', data)
@@ -26,7 +28,9 @@ export default function Home({ miners }) {
   const [safeAuthSignInResponse, setSafeAuthSignInResponse] = useState(null)
   const [userInfo, setUserInfo] = useState(null)
   const [provider, setProvider] = useState(null)
-  const [messages, setMessage] = useState([]);
+  const [messages, setMessages] = useState([]);
+  const [xmtpClient, setXmtp] = useState(null);
+  const [xmtpConversation, setConversation] = useState(null);
 
   useEffect(() => {
     ;(async () => {
@@ -118,6 +122,48 @@ export default function Home({ miners }) {
     setSafeAuthSignInResponse(null)
   }
 
+  const startChatting = async () => {
+    try {
+      const address = selectedMiner.tba;
+      setChatting(true);
+
+      const provider = new ethers.BrowserProvider(web3AuthModalPack.getProvider())
+      const signer = await provider.getSigner()
+      
+      const xmtp = await Client.create(signer);
+      setXmtp(xmtp);
+             
+      const conversation = await xmtp.conversations.newConversation(process.env.NEXT_PUBLIC_SERVER_WALLET);       
+      setConversation(conversation);
+      const xmtpMessages = await conversation.messages();
+      const messagesToShow = xmtpMessages.filter(m => m.content.substring(0, 1) === selectedMiner.tokenId);
+      console.log({messagesToShow});
+      console.log({xmtpMessages})
+      setMessages(messagesToShow)
+    } catch (error) {
+      console.log(error);
+      alert("Trouble connecting through terminal link")
+      setChatting(false);
+    }       
+  }
+
+  const sendMessage = async (text) => {
+    try {
+      const address = await web3AuthModalPack.getAddress();
+      await xmtpConversation.send(`${selectedMiner.tokenId} - ${text}`);
+      await fetch("/api/chat", {
+        method: "POST", 
+        headers: {'Content-Type': 'application/json'}, 
+        body: JSON.stringify({text, npc: selectedMiner, address})
+      })
+      for await (const message of await xmtpConversation.streamMessages()) {
+        console.log(`[${message.senderAddress}]: ${message.content}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <>
       <Head>
@@ -132,7 +178,7 @@ export default function Home({ miners }) {
       <div className="">            
         {
           !!provider ? 
-          <MainScreen setChatting={setChatting} logout={logout} userInfo={userInfo} chatting={chatting} miners={miners} setSelectedMiner={setSelectedMiner} selectedMiner={selectedMiner} /> : 
+          <MainScreen sendMessage={sendMessage} setChatting={setChatting} startChatting={startChatting} logout={logout} userInfo={userInfo} chatting={chatting} miners={miners} setSelectedMiner={setSelectedMiner} selectedMiner={selectedMiner} /> : 
           <AuthScreen login={login} isLoggedIn={!!provider} setAuthenticated={setAuthenticated} />
         }
       </div>

@@ -3,7 +3,7 @@ import SelectMinerScreen from "./SelectMinerScreen";
 import Logo from "./Logo";
 import ChatScreen from "./ChatScreen";
 
-const MainScreen = ({ chatting, miners, selectedMiner, setSelectedMiner, logout, setChatting }) => {
+const MainScreen = ({ chatting, miners, selectedMiner, setSelectedMiner, logout, setChatting, startChatting, sendMessage }) => {
   return (
     <div>
       <Logo />
@@ -16,6 +16,7 @@ const MainScreen = ({ chatting, miners, selectedMiner, setSelectedMiner, logout,
           setChatting={setChatting}
           selectedMiner={selectedMiner}
           setSelectedMiner={setSelectedMiner}
+          sendMessage={sendMessage}
         />
       ) : (
         <SelectMinerScreen
@@ -23,6 +24,7 @@ const MainScreen = ({ chatting, miners, selectedMiner, setSelectedMiner, logout,
           setSelectedMiner={setSelectedMiner}
           selectedMiner={selectedMiner}
           setChatting={setChatting}
+          startChatting={startChatting}
         />
       )}
     </div>

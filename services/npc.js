@@ -1,5 +1,4 @@
 import { Alchemy, Network } from "alchemy-sdk";
-import fs from "fs";
 const { TokenboundClient } = require("@tokenbound/sdk");
 const { ethers } = require("ethers");
 const provider = new ethers.AlchemyProvider("goerli", process.env.ALCHEMY_KEY);
@@ -36,9 +35,12 @@ export const getNPCState = async (npcId) => {
     for (let npc of npcs) {
       let newNpc = {
         name: npc.title,
+        tokenId: npc.tokenId,
         description: npc.description,
         image: npc.rawMetadata.image,
         maxHealth: 10,
+        //  @TODO replace this with real location
+        currentLocation: "Bar"
       };
 
       const npcStats = await operatorContract.getNPCStats(npc.tokenId);
