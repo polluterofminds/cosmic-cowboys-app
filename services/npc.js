@@ -28,7 +28,7 @@ export const getNPCState = async (npcId) => {
       process.env.SERVER_WALLET_ADDRESS,
       { contractAddresses: [process.env.NPC_CONTRACT_ADDRESS] }
     );
-    
+
     const npcs = npcsData.ownedNfts;
 
     let mergedNpcData = [];
@@ -37,7 +37,7 @@ export const getNPCState = async (npcId) => {
       let newNpc = {
         name: npc.title,
         description: npc.description,
-        // image: npc.metadata.image,
+        image: npc.rawMetadata.image,
         maxHealth: 10,
       };
 
@@ -73,21 +73,6 @@ export const getNPCState = async (npcId) => {
         } else if (tbaItems.ownedNfts[i].title === "Jupiter's Junk") {
           newNpc.supplies = tbaItems.ownedNfts[i].balance;
         }
-      }
-
-      //  Get image CID
-      const charactersDirectory = fs.readdirSync("./characters");
-      const miners = [];
-      for (const c of charactersDirectory) {
-        let m = JSON.parse(fs.readFileSync(`./characters/${c}`));
-        const image = m.image;
-        const name = m.name;
-        miners.push({image, name});
-      }
-
-      const found = miners.find(m => m.name === newNpc.name);
-      if(found) {
-        newNpc.image = found.image;
       }
 
       mergedNpcData.push(newNpc);
