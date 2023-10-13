@@ -1,19 +1,19 @@
 import React, { useState } from "react";
-import Messages from "../Messages";
+import Messages from "./Messages";
 import RocketIcon from "../RocketIcon";
 
-const ChatRightSide = ({ messages, sendMessage }) => {
+const ChatRightSide = ({ messages, sendMessage, address, selectedMiner, userInfo }) => {
   const [newMessage, setNewMessage] = useState("");
 
   const handleSend = async () => {
-    await sendMessage(newMessage);
+    sendMessage(newMessage);
     setNewMessage("");
   }
   return (
     <div className="h-full w-3/5">
       <div className="mb-20 mt-6 ml-4 rounded-lg border border-primary bg-gradient-to-r from-chatBackgroundPrimary to-chatBackgroundSecondary">
         <div className="flex min-h-[65vh] max-h-[85%] flex-col justify-end">
-          <Messages messages={messages} />
+          <Messages userInfo={userInfo} messages={messages} address={address} selectedMiner={selectedMiner} />
           <div className="h-full">
             <div className="flex px-4 pb-4">
               <input

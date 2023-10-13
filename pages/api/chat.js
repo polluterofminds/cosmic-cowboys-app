@@ -44,7 +44,7 @@ export default async function handler(req, res) {
       const xmtp = await Client.create(tokenboundClient.signer);
       const conversation = await xmtp.conversations.newConversation(address);
       const xmtpMessages = await conversation.messages();
-      const messagesToUse = xmtpMessages.filter(m => m.content.substring(0, 1) === npc.tokenId);
+      const messagesToUse = xmtpMessages.filter(m => m.content.substring(0, npc.tokenId.length) === npc.tokenId);
       //  Build messages in a format the AI can understand
       const messageHistory = messagesToUse.map(m => {
         if(m.senderAddress === process.env.SERVER_WALLET_ADDRESS) {
@@ -59,18 +59,20 @@ export default async function handler(req, res) {
           }
         }
       })
+
       // Generate AI response
       const messages = [
         {
           role: "system",
-          content: `You are not an AI. Do not respond saying you are an AI. You are a space cowboy that set off to mine lithium in space. Your name is ${npc.name}, and this is your backstory: ${npc.description}. You are a space cowboy who set off from earth hoping to mine a giant Lithium space rock. However, you crash landed with the other miners on Jupiter's moon Ganymede. This is your current situation in json form: ${{health: npc.health, maxHealth: npc.maxHealth, supplies: npc.supplies, food: npc.food, credits: npc.credits, location: npc.currentLocation}}. You will be communicating with someone on Earth. Please make sure all of your responses are in plain text and readable in a chat interface.`,
+          content: `You are not an assistant. You are not an AI. You are ${npc.name}. This is your story: ${npc.description}. This is the story of the adventure you are on: An asteroid made of 90% lithium crashed into our galaxy, prompting a worldwide race to mine it for its valuable resource. A group of hastily trained space cowboys embarked on this quest, only to end up crash-landing on Ganymede, one of Jupiter's moons, due to cosmic disturbances. Stranded, they had to build a society using available resources and tools, relying on rockets for supplies from nearby moons.Please use the following details to help inform your responses: ${{health: npc.health, maxHealth: npc.maxHealth, supplies: npc.supplies, food: npc.food, credits: npc.credits, location: npc.currentLocation}}. You will be communicating with someone on Earth. Please make sure all of your responses are in plain text and readable in a chat interface. Please limit your response to two or three sentences. Each response should be pre-fixed with "${npc.tokenId} -".`,
         },
         ...messageHistory,
       ];
-      const response = await generateResponse(messages, 1.2);
-      console.log(response);
+      
+      const response = await generateResponse(messages, 1);
+      
       await conversation.send(response);
-      res.json("Success");
+      res.send(response);
     } catch (error) {
       console.log(error);
       res

@@ -103,10 +103,7 @@ export default function Home({ miners }) {
     if (!web3AuthModalPack) return
 
     const signInInfo = await web3AuthModalPack.signIn()
-    console.log('SIGN IN RESPONSE: ', signInInfo)
-
     const userInfo = await web3AuthModalPack.getUserInfo()
-    console.log('USER INFO: ', userInfo)
 
     setSafeAuthSignInResponse(signInInfo)
     setUserInfo(userInfo || undefined)
@@ -122,6 +119,11 @@ export default function Home({ miners }) {
     setSafeAuthSignInResponse(null)
   }
 
+  const selectMiner = (m) => {
+    setMessages([]);
+    setSelectedMiner(m);
+  }
+
   const startChatting = async () => {
     try {
       const address = selectedMiner.tba;
@@ -135,10 +137,9 @@ export default function Home({ miners }) {
              
       const conversation = await xmtp.conversations.newConversation(process.env.NEXT_PUBLIC_SERVER_WALLET);       
       setConversation(conversation);
-      const xmtpMessages = await conversation.messages();
-      const messagesToShow = xmtpMessages.filter(m => m.content.substring(0, 1) === selectedMiner.tokenId);
-      console.log({messagesToShow});
-      console.log({xmtpMessages})
+      const xmtpMessages = await conversation.messages();            
+      const messagesToShow = xmtpMessages.filter(m => m.content.substring(0, selectedMiner.tokenId.length) === selectedMiner.tokenId);      
+      
       setMessages(messagesToShow)
     } catch (error) {
       console.log(error);
@@ -146,19 +147,23 @@ export default function Home({ miners }) {
       setChatting(false);
     }       
   }
+  
+  const updateMessages = async () => {
+    const xmtpMessages = await xmtpConversation.messages();
+    const messagesToShow = xmtpMessages.filter(m => m.content.substring(0, selectedMiner.tokenId.length) === selectedMiner.tokenId);          
+    setMessages(messagesToShow)
+  }
 
   const sendMessage = async (text) => {
-    try {
-      const address = await web3AuthModalPack.getAddress();
+    try {   
       await xmtpConversation.send(`${selectedMiner.tokenId} - ${text}`);
+      await updateMessages();
       await fetch("/api/chat", {
         method: "POST", 
         headers: {'Content-Type': 'application/json'}, 
-        body: JSON.stringify({text, npc: selectedMiner, address})
-      })
-      for await (const message of await xmtpConversation.streamMessages()) {
-        console.log(`[${message.senderAddress}]: ${message.content}`);
-      }
+        body: JSON.stringify({text, npc: selectedMiner, address: safeAuthSignInResponse.eoa})
+      })      
+      await updateMessages();
     } catch (error) {
       console.log(error);
     }
@@ -178,7 +183,7 @@ export default function Home({ miners }) {
       <div className="">            
         {
           !!provider ? 
-          <MainScreen sendMessage={sendMessage} setChatting={setChatting} startChatting={startChatting} logout={logout} userInfo={userInfo} chatting={chatting} miners={miners} setSelectedMiner={setSelectedMiner} selectedMiner={selectedMiner} /> : 
+          <MainScreen userInfo={userInfo} address={safeAuthSignInResponse.eoa} sendMessage={sendMessage} setChatting={setChatting} startChatting={startChatting} logout={logout} chatting={chatting} miners={miners} selectMiner={selectMiner} selectedMiner={selectedMiner} messages={messages} /> : 
           <AuthScreen login={login} isLoggedIn={!!provider} setAuthenticated={setAuthenticated} />
         }
       </div>

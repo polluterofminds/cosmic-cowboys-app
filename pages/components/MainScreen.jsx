@@ -3,11 +3,23 @@ import SelectMinerScreen from "./SelectMinerScreen";
 import Logo from "./Logo";
 import ChatScreen from "./ChatScreen";
 
-const MainScreen = ({ chatting, miners, selectedMiner, setSelectedMiner, logout, setChatting, startChatting, sendMessage }) => {
+const MainScreen = ({
+  chatting,
+  miners,
+  selectedMiner,
+  selectMiner,
+  logout,
+  setChatting,
+  startChatting,
+  sendMessage,
+  address,
+  messages,
+  userInfo,
+}) => {
   return (
     <div>
       <Logo />
-      <div className="lg:fixed right-8 top-8">
+      <div className="right-8 top-8 lg:fixed">
         <button onClick={logout}>Disconnect</button>
       </div>
       {chatting ? (
@@ -15,13 +27,16 @@ const MainScreen = ({ chatting, miners, selectedMiner, setSelectedMiner, logout,
           miners={miners}
           setChatting={setChatting}
           selectedMiner={selectedMiner}
-          setSelectedMiner={setSelectedMiner}
+          selectMiner={selectMiner}
           sendMessage={sendMessage}
+          address={address}
+          messages={messages}
+          userInfo={userInfo}
         />
       ) : (
         <SelectMinerScreen
           miners={miners}
-          setSelectedMiner={setSelectedMiner}
+          selectMiner={selectMiner}
           selectedMiner={selectedMiner}
           setChatting={setChatting}
           startChatting={startChatting}

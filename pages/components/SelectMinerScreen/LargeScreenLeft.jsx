@@ -7,7 +7,7 @@ import TabCard from "../backgrounds/TabCard";
 import Card from "../backgrounds/Card";
 import RightTab from "../tabs/RightTab";
 
-const LargeScreenLeft = ({ miners, setSelectedMiner }) => {
+const LargeScreenLeft = ({ miners, selectMiner }) => {
   return (
     <div className="m-0 w-[40%] grow-0">
       <LeftCard customClasses="min-h-[60vh]">
@@ -45,7 +45,7 @@ const LargeScreenLeft = ({ miners, setSelectedMiner }) => {
                     return (
                       <div
                         aria-label="button"
-                        onClick={() => setSelectedMiner(m)}
+                        onClick={() => selectMiner(m)}
                         key={m.image}
                         className="align-center mb-2 flex h-12 w-full items-center cursor-pointer"
                       >
