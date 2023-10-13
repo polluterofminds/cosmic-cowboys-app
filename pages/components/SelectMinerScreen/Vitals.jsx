@@ -93,7 +93,7 @@ const Vitals = ({ selectedMiner }) => {
     }
   };
   return (
-    <TabCard customClasses="mx-[6.75rem] bg-mainBrown">
+    <TabCard customClasses="lg:mx-[6.75rem] m-auto lg:mb-0 lg:mt-0 mb-2 mt-4 bg-mainBrown">
       <div className="m-auto w-[90%]">
         <div className="align-center flex items-center">
           <GradientHeading customClasses="text-4xl">VITALS</GradientHeading>

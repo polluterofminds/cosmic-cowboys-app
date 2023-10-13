@@ -11,23 +11,23 @@ import Vitals from "./Vitals";
 
 const LargeScreenRight = ({ miners, selectedMiner, setChatting, startChatting }) => {
   return (
-    <div className="m-0 w-[60%]">
+    <div className="m-0 w-full lg:w-[60%]">
       <div>
         <Vitals selectedMiner={selectedMiner} />
         <RightCard customClasses="min-h-[70vh]">
-          <div className="mt-4 p-6">
+          <div id="miner-bio" className="mt-4 p-6">
             <Card customClasses="p-6 min-h-[50vh] max-h-[70vh] overflow-scroll no-scrollbar">
-              <div className="flex items-start justify-start">
+              <div className="lg:flex items-start">
                 <img
-                  className="h-20 w-20 rounded-full"
+                  className="lg:h-20 lg:w-20 h-12 w-12 rounded-full"
                   src={`https://${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${
                     selectedMiner.image.split("://")[1]
                   }`}
                   alt={selectedMiner.name}
                 />
-                <div className="w-full ml-2">
-                  <div className="align-center flex items-center justify-between">
-                    <GradientHeading customClasses="font-sans font-bold text-4xl ml-2">
+                <div className="w-full lg:ml-2">
+                  <div className="align-center lg:flex items-center justify-between">
+                    <GradientHeading customClasses="font-sans font-bold lg:text-4xl text-2xl ml-2">
                       {selectedMiner.name}
                     </GradientHeading>
                     <button
@@ -38,7 +38,7 @@ const LargeScreenRight = ({ miners, selectedMiner, setChatting, startChatting })
                       <span className="text-xl">ENGAGE</span>
                     </button>
                   </div>
-                  <div className="pre-wrap mt-6 ml-2 mr-10 text-white/60 font-semibold font-sans text-xl">
+                  <div className="pre-wrap mt-6 lg:ml-2 lg:mr-10 text-white/60 font-semibold font-sans lg:text-xl text-lg">
                     {selectedMiner.description.split("\n").map((p, index) => {
                       return (
                         <p className="mb-2" key={index}>{p}</p>

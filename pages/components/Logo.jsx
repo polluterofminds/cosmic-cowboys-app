@@ -8,7 +8,6 @@ const Logo = () => {
       viewBox="0 0 292 260"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="fixed -top-10 left-0"
     >
       <g filter="url(#filter0_f_15_1298)">
         <circle

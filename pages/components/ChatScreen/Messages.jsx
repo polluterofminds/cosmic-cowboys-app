@@ -8,7 +8,7 @@ const Messages = ({ messages, selectedMiner, address, userInfo }) => {
     ref.current.scrollIntoView({behavior: "smooth", block:"end"})
   }, [messages]);
   return (
-    <div className="p-6 w-full max-h-[60vh] overflow-scroll no-scrollbar">
+    <div className="lg:p-6 w-full max-h-[60vh] overflow-scroll no-scrollbar">
       {
         messages.map((m, index) => {
           if(m.senderAddress === address) {            

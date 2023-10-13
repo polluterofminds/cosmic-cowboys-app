@@ -13,7 +13,7 @@ const ChatLeftSide = ({
       <div className="p-4">
         <button
           onClick={() => setChatting(false)}
-          className="inline-flex items-center justify-center gap-x-2 py-2.5 text-sm font-semibold text-white/60 outline-none"
+          className="inline-flex fixed lg:relative top-2 left-0 items-center justify-center gap-x-2 py-2.5 text-sm font-semibold text-white/60 outline-none"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +31,7 @@ const ChatLeftSide = ({
           </svg>
           <span className="ml-2 mt-[3px] text-lg">BACK</span>
         </button>
-        <div className="flex w-full">
+        <div className="lg:flex hidden w-full">
           <Card customClasses="w-[90%]">
             <div className="p-6">
               <GradientHeading customClasses="text-3xl font-bold font-sans">
@@ -48,14 +48,14 @@ const ChatLeftSide = ({
               </div>
             </div>
           </Card>
-          <div className="align-center ml-2 mt-4 flex w-[10%] flex-col justify-center">
+          <div className="align-center ml-2 mt-4 lg:flex hidden w-[10%] flex-col justify-center">
             <div className="mb-[5px] h-6 w-6 rounded-full border-[0.5px] border-primary" />
             <div className="mb-[5px] h-6 w-6 rounded-full border-[0.5px] border-primary" />
             <div className="mb-[5px] h-6 w-6 rounded-full border-[0.5px] border-primary" />
             <div className="mb-[5px] h-6 w-6 rounded-full border-[0.5px] border-primary" />
           </div>
         </div>
-        <div className="mt-2 -ml-6 flex justify-between">
+        <div className="mt-2 -ml-6 lg:flex hidden justify-between">
           <img className="h-72 w-72" src="/Radar.png" alt="Radar" />
           <img className="h-72 mr-8" src="/HUD.png" alt="Radar" />
         </div>

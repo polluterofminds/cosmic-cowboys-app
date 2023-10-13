@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import LeftCard from "../backgrounds/LeftCard";
 import GradientHeading from "../Typography/GradientHeading";
 import WelcomeLines from "../WelcomeLines";
@@ -8,12 +8,18 @@ import Card from "../backgrounds/Card";
 import RightTab from "../tabs/RightTab";
 
 const LargeScreenLeft = ({ miners, selectMiner }) => {
+  const handleSelect = (m) => {
+    const element = document.getElementById("miner-bio");
+    console.log(element);
+    element.scrollTo()
+    selectMiner(m);
+  }
   return (
-    <div className="m-0 w-[40%] grow-0">
+    <div className="m-0 w-full grow-0 lg:w-[40%]">
       <LeftCard customClasses="min-h-[60vh]">
         <div className="m-auto mt-10 w-[90%]">
           <div className="flex w-full items-center">
-            <GradientHeading customClasses='font-sans text-4xl font-bold'>
+            <GradientHeading customClasses="font-sans text-4xl font-bold">
               DASHBOARD
             </GradientHeading>
             <div className="w-full">
@@ -40,14 +46,39 @@ const LargeScreenLeft = ({ miners, selectMiner }) => {
           <div className="flex">
             <div className="mt-4 w-[90%] p-4">
               <Card customClasses="p-4">
-                <div className="no-scrollbar max-h-[30vh] overflow-scroll">
+                {/* Mobile View */}
+                <div className="lg:hidden block no-scrollbar max-h-[30vh] overflow-scroll">
+                  {miners.map((m) => {
+                    return (
+                      <div
+                        aria-label="button"
+                        onClick={() => handleSelect(m)}
+                        key={m.image}
+                        className="align-center mb-2 flex h-12 w-full cursor-pointer items-center"
+                      >
+                        <img
+                          src={`https://${
+                            process.env.NEXT_PUBLIC_GATEWAY_URL
+                          }/ipfs/${m.image.split("://")[1]}`}
+                          alt={m.name}
+                          className="h-10 w-10 rounded-full"
+                        />
+                        <GradientHeading customClasses="h-8 ml-2 text-xl font-sans">
+                          {m.name.toUpperCase()}
+                        </GradientHeading>
+                      </div>
+                    );
+                  })}
+                </div>
+                {/* Large View */}
+                <div className="hidden lg:block no-scrollbar max-h-[30vh] overflow-scroll">
                   {miners.map((m) => {
                     return (
                       <div
                         aria-label="button"
                         onClick={() => selectMiner(m)}
                         key={m.image}
-                        className="align-center mb-2 flex h-12 w-full items-center cursor-pointer"
+                        className="align-center mb-2 flex h-12 w-full cursor-pointer items-center"
                       >
                         <img
                           src={`https://${
@@ -65,20 +96,20 @@ const LargeScreenLeft = ({ miners, selectMiner }) => {
                 </div>
               </Card>
             </div>
-            <div className="align-center relative mt-20 h-full w-[10%] flex-col items-center justify-center">
-              <div className="absolute -right-60 top-0 mt-0">
+            <div className="align-center relative mt-12 lg:mt-20 h-full w-[10%] flex-col items-center justify-center">
+              <div className="-right-100 absolute top-0 mt-0 lg:-right-60">
                 <RightTab />
               </div>
-              <div className="absolute -right-60 top-[40px] mt-0">
+              <div className="-right-100 absolute top-[40px] mt-0 lg:-right-60">
                 <RightTab />
               </div>
-              <div className="absolute -right-60 top-[80px]">
+              <div className="-right-100 absolute top-[80px] lg:-right-60">
                 <RightTab />
               </div>
-              <div className="absolute -right-60 top-[120px]">
+              <div className="-right-100 absolute top-[120px] lg:-right-60">
                 <RightTab />
               </div>
-              <div className="absolute -right-60 top-[160px] mt-0">
+              <div className="-right-100 absolute top-[160px] mt-0 lg:-right-60">
                 <RightTab />
               </div>
             </div>

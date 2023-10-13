@@ -10,7 +10,7 @@ const AuthScreen = ({ setAuthenticated, login, logout, userInfo, isLoggedIn }) =
       <div className="lg:w-1/2">
         <img src="/Logo.png" alt="Cosmic Cowboys" className="lg:h-96 h-64 lg:ml-0 -ml-8" />
       </div>
-      <div className="w-1/2">
+      <div className="lg:w-1/2 w-full">
         <LeftCard customClasses="p-6 border-b-lg">
           <div className="align-center flex w-full items-center justify-around">
             <GradientHeading customClasses="text-4xl font-san font-bold">

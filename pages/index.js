@@ -180,7 +180,7 @@ export default function Home({ miners }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="">            
+      <div className="pb-10 min-h-[100vh] max-w-[100%]">            
         {
           !!provider ? 
           <MainScreen userInfo={userInfo} address={safeAuthSignInResponse.eoa} sendMessage={sendMessage} setChatting={setChatting} startChatting={startChatting} logout={logout} chatting={chatting} miners={miners} selectMiner={selectMiner} selectedMiner={selectedMiner} messages={messages} /> : 

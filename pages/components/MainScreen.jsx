@@ -18,10 +18,12 @@ const MainScreen = ({
 }) => {
   return (
     <div>
-      <Logo />
-      <div className="right-8 top-8 lg:fixed">
-        <button onClick={logout}>Disconnect</button>
-      </div>
+      <div className="-mt-8 lg:ml-0 -ml-4 flex w-full justify-between px-4 items-center">
+        <Logo />
+        <div className="mr-4 lg:relative absolute top-2 right-2">
+          <button onClick={logout}>Disconnect</button>
+        </div>
+      </div>            
       {chatting ? (
         <ChatScreen
           miners={miners}

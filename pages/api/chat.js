@@ -45,6 +45,7 @@ export default async function handler(req, res) {
       const xmtp = await Client.create(tokenboundClient.signer);
       const conversation = await xmtp.conversations.newConversation(address);
       const xmtpMessages = await conversation.messages();
+      console.log(xmtpMessages.length);
       const messagesToUse = xmtpMessages.filter(m => m.content.substring(0, npc.tokenId.length) === npc.tokenId);
       //  Build messages in a format the AI can understand
       let messageHistory = messagesToUse.map(m => {
@@ -61,12 +62,10 @@ export default async function handler(req, res) {
         }
       });
 
+      console.log(messageHistory.length);
+
       //  Try to keep the system context strong by trimming the conversation history
-
-      if(messageHistory.length > 8) {
-        messageHistory = messageHistory.slice(7, messageHistory.length - 1);
-      }
-
+      
       //  The AI may choose to execute a function if the input is strong enough
       const functions = availableFunctions.map(f => {
         return {
@@ -90,8 +89,9 @@ export default async function handler(req, res) {
           role: "system",
           content: `You are not an assistant. You are not an AI. You are ${npc.name}. This is your story: ${npc.description}. This is the story of the adventure you are on: An asteroid made of 90% lithium crashed into our galaxy, prompting a worldwide race to mine it for its valuable resource. A group of hastily trained space cowboys embarked on this quest, only to end up crash-landing on Ganymede, one of Jupiter's moons, due to cosmic disturbances. Stranded, they had to build a society using available resources and tools, relying on rockets for supplies from nearby moons.Please use the following details to help inform your responses: ${{health: npc.health, maxHealth: npc.maxHealth, supplies: npc.supplies, food: npc.food, credits: npc.credits, location: npc.currentLocation}}. You will be communicating with someone on Earth. Please make sure all of your responses are in plain text and readable in a chat interface. Please limit your response to two or three sentences. Each response should be pre-fixed with "${npc.tokenId} -".`,
         },
-        ...messageHistory,
+        ...messageHistory.slice(Math.max(messageHistory.length - 8, 0)),
       ];
+      console.log(messages);
       
       const { response } = await generateResponse(messages, 1, functions);
       
@@ -99,7 +99,7 @@ export default async function handler(req, res) {
         console.log("Player triggered a function call");
         console.log(response.function_call);
         console.log(`Action taken: ${response.function_call.name}`)
-        await conversation.send(`Action taken: ${response.function_call.name}`);
+        await conversation.send(`${npc.tokenId} - Action taken: ${response.function_call.name}`);
         //  @TODO Reward the player for triggering a function call
         switch(response.function_call.name) {
           case "goToHome": 
