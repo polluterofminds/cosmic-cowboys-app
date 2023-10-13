@@ -40,7 +40,7 @@ export const getNPCState = async (npcId) => {
         image: npc.rawMetadata.image,
         maxHealth: 10,
         //  @TODO replace this with real location
-        currentLocation: "Bar"
+        currentLocation: "Bar",
       };
 
       const npcStats = await operatorContract.getNPCStats(npc.tokenId);
@@ -152,3 +152,94 @@ export const getNPCState = async (npcId) => {
   //   throw error;
   // }
 };
+
+export const availableFunctions = [
+  {
+    actionToTake: "goToBar",
+    locationName: "Bar",
+    description:
+      "Socialization point, helps develop character personality. The Ganymede bar is the only place to learn what other space cowboys are up to. Cannot be at the bar already to go to bar. Cannot be on a supply mission to go to bar.",
+    arguments: [""],
+  },
+  {
+    actionToTake: "goToHome",
+    locationName: "Home",
+    description:
+      "Home is where our space cowboys rest. By visiting home, you'll increase health by 2 but reduce food by 2. You cannot already be at home to choose to go here. You cannot be on a supply mission to go here.",
+    arguments: [""],
+  },
+  {
+    actionToTake: "goToSupplyDepot",
+    locationName: "Supply Depot",
+    description:
+      "The supply depot is where you can buy and sell supplies. Supplies are bought and sold 1-to-1, meaning if you sell 1 supply, you get 1 credit or if you sell 1 supply, you get 1 credit. You can also launch a supply mission here. The cost to launch a mission is 5 credits. The supply depot is the only place you can go if you are already on a supply mission. You cannot go to the supply depot if you are already at the supply depot.",
+    arguments: [""],
+  },
+  {
+    actionToTake: "buySupplies",
+    locationName: "Supply Depot",
+    description:
+      "Supplies are necessary for launching future supply missions. Without supplies, you launch mission wouldn't be successful. Supplies cost 1 credit to get 1 supply. You can only buy supplies if you are at the supply depot. You must have credits > 0.",
+    arguments: [""],
+  },
+  {
+    actionToTake: "sellSupplies",
+    locationName: "Supply Depot",
+    description:
+      "Selling supplies gives you credits. Credits can be used to launch a mission or visit the bar. Each supply you sell generates 1 credit and reduces your supply inventory by 1. You must be at the supply depot to sell supplies. You must have supplies > 0.",
+  },
+  {
+    actionToTake: "launchSupplyMission",
+    locationName: "Supply Depot",
+    description:
+      "A supply mission is the best way to build up a supply inventory without having to buy supplies. It is also the only way to build up your food inventory. A supply mission will yield 10 supplies and 10 food. The cost to launch the mission is 5 credits. You must be at the supply depot to launch a mission and you must have a credit balance of at least 5.",
+  },
+];
+
+export const goToBar = async(npc) => {
+  try {
+    console.log(`${npc.name} chose: goToBar`)
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const goToHome = async(npc) => {
+  try {
+    console.log(`${npc.name} chose: goToHome`)
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const goToSupplyDepot = async(npc) => {
+  try {
+    console.log(`${npc.name} chose: goToSupplyDepot`)
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const buySupplies = async(npc) => {
+  try {
+    console.log(`${npc.name} chose: buySupplies`)
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const sellSupplies = async(npc) => {
+  try {
+    console.log(`${npc.name} chose: sellSupplies`)
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const launchSupplyMission = async(npc) => {
+  try {
+    console.log(`${npc.name} chose: launchSupplyMission`)
+  } catch (error) {
+    throw error;
+  }
+}

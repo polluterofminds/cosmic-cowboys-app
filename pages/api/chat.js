@@ -1,6 +1,7 @@
 import { generateResponse } from "@/services/aiService";
 import { Client } from "@xmtp/xmtp-js";
 import { uploadJson } from "@/services/storage";
+import { availableFunctions, buySupplies, goToBar, goToHome, goToSupplyDepot, launchSupplyMission, sellSupplies } from "@/services/npc";
 const { TokenboundClient } = require("@tokenbound/sdk");
 const { ethers } = require("ethers");
 const provider = new ethers.AlchemyProvider("goerli", process.env.ALCHEMY_KEY);
@@ -46,7 +47,7 @@ export default async function handler(req, res) {
       const xmtpMessages = await conversation.messages();
       const messagesToUse = xmtpMessages.filter(m => m.content.substring(0, npc.tokenId.length) === npc.tokenId);
       //  Build messages in a format the AI can understand
-      const messageHistory = messagesToUse.map(m => {
+      let messageHistory = messagesToUse.map(m => {
         if(m.senderAddress === process.env.SERVER_WALLET_ADDRESS) {
           return {
             role: "assistant", 
@@ -58,7 +59,30 @@ export default async function handler(req, res) {
             content: m.content
           }
         }
-      })
+      });
+
+      //  Try to keep the system context strong by trimming the conversation history
+
+      if(messageHistory.length > 8) {
+        messageHistory = messageHistory.slice(7, messageHistory.length - 1);
+      }
+
+      //  The AI may choose to execute a function if the input is strong enough
+      const functions = availableFunctions.map(f => {
+        return {
+          name: f.actionToTake, 
+          description: f.description,
+          parameters: {
+            "type": "object",
+            "properties": {
+                "npc": {
+                    "type": "object",
+                    "description": `The npc who is curently talking, represented by this variable: ${npc}`,
+                }                
+            }            
+        },
+        }
+      })      
 
       // Generate AI response
       const messages = [
@@ -69,10 +93,42 @@ export default async function handler(req, res) {
         ...messageHistory,
       ];
       
-      const response = await generateResponse(messages, 1);
+      const { response } = await generateResponse(messages, 1, functions);
       
-      await conversation.send(response);
-      res.send(response);
+      if(response.function_call) {
+        console.log("Player triggered a function call");
+        console.log(response.function_call);
+        console.log(`Action taken: ${response.function_call.name}`)
+        await conversation.send(`Action taken: ${response.function_call.name}`);
+        //  @TODO Reward the player for triggering a function call
+        switch(response.function_call.name) {
+          case "goToHome": 
+            await goToHome(npc);
+            break;
+          case "goToBar": 
+            await goToBar(npc);
+            break;
+          case "goToSupplyDepot": 
+            await goToSupplyDepot(npc);
+            break;
+          case "buySupplies": 
+            await buySupplies(npc);
+            break;
+          case "sellSupplies": 
+            await sellSupplies(npc);
+            break;
+          case "launchSupplyMission":
+            await launchSupplyMission(npc);
+            break;
+          default:
+            console.log("No function selected");
+            break;
+        }      
+      } else {
+        await conversation.send(response.content);
+      }    
+      
+      res.json(response);
     } catch (error) {
       console.log(error);
       res

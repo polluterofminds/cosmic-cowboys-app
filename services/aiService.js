@@ -4,15 +4,21 @@ const openai = new OpenAI({
   apiKey: process.env.OPEN_AI_KEY,
 });
 
-export const generateResponse = async (messages, temperature, gpt) => {
+export const generateResponse = async (messages, temperature, functions, gpt) => {
   try {
-    const completion = await openai.chat.completions.create({
+    const completionObj = {
       messages: messages,
       temperature: temperature || 0.7, 
       model: gpt || "gpt-3.5-turbo",
-    });
+    }
 
-    return completion.choices[0].message.content
+    if(functions) {
+      completionObj["functions"] = functions;
+    }
+
+    const completion = await openai.chat.completions.create(completionObj);
+
+    return {response: completion.choices[0].message }
   } catch (error) {
     console.log(error);
     throw error;
