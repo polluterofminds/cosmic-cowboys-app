@@ -5,7 +5,15 @@ export const uploadJson = async (payload) => {
   try {
     const { body, options } = payload;
     
-    await pinata.pinJSONToIPFS(body, options)
+    return await pinata.pinJSONToIPFS(body, options)
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const getFiles = async (filters) => {
+  try {
+    return await pinata.pinList(filters);
   } catch (error) {
     throw error;
   }
