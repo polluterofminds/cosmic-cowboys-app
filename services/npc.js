@@ -2,7 +2,7 @@ import { Alchemy, Network } from "alchemy-sdk";
 import { getFiles, uploadJson } from "./storage";
 const { TokenboundClient } = require("@tokenbound/sdk");
 const { ethers } = require("ethers");
-const provider = new ethers.AlchemyProvider("goerli", process.env.ALCHEMY_KEY);
+const provider = new ethers.AlchemyProvider("sepolia", process.env.ALCHEMY_KEY);
 const foodContractAddress = process.env.FOOD_CONTRACT_ADDRESS;
 const suppliesContractAddress = process.env.SUPPLIES_CONTRACT_ADDRESS;
 const currencyContractAddress = process.env.CURRENCY_CONTRACT_ADDRESS;
@@ -13,7 +13,7 @@ const wallet = new ethers.Wallet(
 );
 const config = {
   apiKey: process.env.ALCHEMY_KEY,
-  network: Network.ETH_GOERLI,
+  network: Network.ETH_SEPOLIA
 };
 const operatorAbi = require("./operatorAbi.json").abi;
 const alchemy = new Alchemy(config);
@@ -23,10 +23,10 @@ const operatorContract = new ethers.Contract(
   operatorAbi,
   wallet
 );
-const tokenboundClient = new TokenboundClient({ signer: wallet, chainId: 5 });
+const tokenboundClient = new TokenboundClient({ signer: wallet, chainId: 11155111 });
 
 export const getNPCStateFromBlockchain = async () => {
-  const tokenboundClient = new TokenboundClient({ signer: wallet, chainId: 5 });
+  const tokenboundClient = new TokenboundClient({ signer: wallet, chainId: 11155111 });
   try {
     const npcsData = await alchemy.nft.getNftsForOwner(
       process.env.SERVER_WALLET_ADDRESS,
@@ -236,7 +236,7 @@ export const goToSupplyDepot = async (npc) => {
 
 export const buySupplies = async (npc) => {
   try {
-    if(npc.currentLocation !== "Supply Depot") {
+    if (npc.currentLocation !== "Supply Depot") {
       console.log("You need to be at the supply depot");
       return;
     }
@@ -263,7 +263,7 @@ export const buySupplies = async (npc) => {
 
 export const sellSupplies = async (npc) => {
   try {
-    if(npc.currentLocation !== "Supply Depot") {
+    if (npc.currentLocation !== "Supply Depot") {
       console.log("You need to be at the supply depot");
       return;
     }
@@ -272,7 +272,7 @@ export const sellSupplies = async (npc) => {
       console.log("Not enough supplies")
       return
     }
-    
+
     const burnSupplies = await tokenboundClient.transferNFT({
       account: npc.tba,
       tokenType: 'ERC1155',
@@ -293,11 +293,11 @@ export const sellSupplies = async (npc) => {
 
 export const launchSupplyMission = async (npc) => {
   try {
-    if(npc.currentLocation !== "Supply Depot") {
+    if (npc.currentLocation !== "Supply Depot") {
       console.log("You need to be at the supply depot");
       return;
     }
-    
+
     if (npc.credits < 5) {
       console.out("Not enough credits")
       return
@@ -313,6 +313,8 @@ export const launchSupplyMission = async (npc) => {
       erc20tokenDecimals: 18,
     })
     console.log(burnCredits)
+    const launchMission = await operatorContract.launchSupplyMission(npc.tokenId)
+    console.log(launchMission)
     const mintFood = await operatorContract.feedNPC(npc.tba, 10)
     console.log(mintFood)
     const supplyNPC = await operatorContract.supplyNPC(npc.tba, 10)
