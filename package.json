@@ -11,7 +11,7 @@
   "dependencies": {
     "@pinata/sdk": "^2.1.0",
     "@safe-global/auth-kit": "^1.2.1",
-    "@tokenbound/sdk": "^0.3.9",
+    "@tokenbound/sdk": "^0.3.12",
     "@web3auth/base": "^4.3.0",
     "@web3auth/modal": "^4.3.1",
     "@web3auth/openlogin-adapter": "^4.3.0",
