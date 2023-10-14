@@ -186,6 +186,7 @@ export const goToBar = async (npc) => {
     const goToBarTx = await operatorContract.goToBar(npc.tokenId);
     console.log(goToBarTx)
     console.log(`${npc.name} chose: goToBar`)
+    getNPCState();
   } catch (error) {
     throw error;
   }
@@ -212,6 +213,7 @@ export const goToHome = async (npc) => {
     })
     console.log(burnFood)
     console.log(`${npc.name} chose: goToHome`)
+    getNPCState();
   } catch (error) {
     throw error;
   }
@@ -226,6 +228,7 @@ export const goToSupplyDepot = async (npc) => {
     const goToSupplyDepotTx = await operatorContract.goToSupplyDepot(npc.tokenId);
     console.log(goToSupplyDepotTx)
     console.log(`${npc.name} chose: goToSupplyDepot`)
+    getNPCState();
   } catch (error) {
     throw error;
   }
@@ -233,6 +236,10 @@ export const goToSupplyDepot = async (npc) => {
 
 export const buySupplies = async (npc) => {
   try {
+    if(npc.currentLocation !== "supply depot") {
+      console.log("You need to be at the supply depot");
+      return;
+    }
     if (npc.credits < 1) {
       console.log("Not enough credits")
       return
@@ -248,6 +255,7 @@ export const buySupplies = async (npc) => {
     const mintSupplies = await operatorContract.supplyNPC(npc.tba, 1)
     console.log(mintSupplies)
     console.log(`${npc.name} chose: buySupplies`)
+    getNPCState();
   } catch (error) {
     throw error;
   }
@@ -255,10 +263,16 @@ export const buySupplies = async (npc) => {
 
 export const sellSupplies = async (npc) => {
   try {
+    if(npc.currentLocation !== "supply depot") {
+      console.log("You need to be at the supply depot");
+      return;
+    }
+
     if (npc.supplies < 1) {
       console.log("Not enough supplies")
       return
     }
+    
     const burnSupplies = await tokenboundClient.transferNFT({
       account: npc.tba,
       tokenType: 'ERC1155',
@@ -271,6 +285,7 @@ export const sellSupplies = async (npc) => {
     const mintCredits = await operatorContract.fundNPC(npc.tba, 1);
     console.log(mintCredits)
     console.log(`${npc.name} chose: sellSupplies`)
+    getNPCState();
   } catch (error) {
     throw error;
   }
@@ -278,6 +293,11 @@ export const sellSupplies = async (npc) => {
 
 export const launchSupplyMission = async (npc) => {
   try {
+    if(npc.currentLocation !== "supply depot") {
+      console.log("You need to be at the supply depot");
+      return;
+    }
+    
     if (npc.credits < 5) {
       console.out("Not enough credits")
       return
@@ -298,6 +318,7 @@ export const launchSupplyMission = async (npc) => {
     const supplyNPC = await operatorContract.supplyNPC(npc.tba, 10)
     console.log(supplyNPC)
     console.log(`${npc.name} chose: launchSupplyMission`)
+    getNPCState();
   } catch (error) {
     throw error;
   }
