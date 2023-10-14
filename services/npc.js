@@ -236,7 +236,7 @@ export const goToSupplyDepot = async (npc) => {
 
 export const buySupplies = async (npc) => {
   try {
-    if(npc.currentLocation !== "supply depot") {
+    if(npc.currentLocation !== "Supply Depot") {
       console.log("You need to be at the supply depot");
       return;
     }
@@ -263,7 +263,7 @@ export const buySupplies = async (npc) => {
 
 export const sellSupplies = async (npc) => {
   try {
-    if(npc.currentLocation !== "supply depot") {
+    if(npc.currentLocation !== "Supply Depot") {
       console.log("You need to be at the supply depot");
       return;
     }
@@ -293,7 +293,7 @@ export const sellSupplies = async (npc) => {
 
 export const launchSupplyMission = async (npc) => {
   try {
-    if(npc.currentLocation !== "supply depot") {
+    if(npc.currentLocation !== "Supply Depot") {
       console.log("You need to be at the supply depot");
       return;
     }

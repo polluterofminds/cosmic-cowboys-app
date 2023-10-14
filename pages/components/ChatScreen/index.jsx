@@ -11,6 +11,7 @@ const ChatScreen = ({
   messages,
   userInfo,
 }) => {
+  console.log(selectedMiner)
   return (
     <div className="min-h-[65vh] pb-16 pt-32">
       {/* Large View */}
