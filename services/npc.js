@@ -3,6 +3,9 @@ import { getFiles, uploadJson } from "./storage";
 const { TokenboundClient } = require("@tokenbound/sdk");
 const { ethers } = require("ethers");
 const provider = new ethers.AlchemyProvider("goerli", process.env.ALCHEMY_KEY);
+const foodContractAddress = process.env.FOOD_CONTRACT_ADDRESS;
+const suppliesContractAddress = process.env.SUPPLIES_CONTRACT_ADDRESS;
+const currencyContractAddress = process.env.CURRENCY_CONTRACT_ADDRESS;
 
 const wallet = new ethers.Wallet(
   process.env.SERVER_WALLET_PRIVATE_KEY,
@@ -20,6 +23,7 @@ const operatorContract = new ethers.Contract(
   operatorAbi,
   wallet
 );
+const tokenboundClient = new TokenboundClient({ signer: wallet, chainId: 5 });
 
 export const getNPCStateFromBlockchain = async () => {
   const tokenboundClient = new TokenboundClient({ signer: wallet, chainId: 5 });
@@ -40,8 +44,6 @@ export const getNPCStateFromBlockchain = async () => {
         description: npc.description,
         image: npc.rawMetadata.image,
         maxHealth: 10,
-        //  @TODO replace this with real location
-        currentLocation: "Bar",
       };
 
       const npcStats = await operatorContract.getNPCStats(npc.tokenId);
@@ -51,7 +53,7 @@ export const getNPCStateFromBlockchain = async () => {
       };
 
       newNpc.health = parsedResult.bigIntValue;
-      newNpc.location = parsedResult.stringValue;
+      newNpc.currentLocation = parsedResult.stringValue;
 
       const tba = tokenboundClient.getAccount({
         tokenContract: process.env.NPC_CONTRACT_ADDRESS,
@@ -177,7 +179,13 @@ export const availableFunctions = [
 
 export const goToBar = async (npc) => {
   try {
-    console.log(`${npc.name} chose: goToBar`);
+    if (npc.currentLocation === "Bar") {
+      console.log("Already at bar")
+      return
+    }
+    const goToBarTx = await operatorContract.goToBar(npc.tokenId);
+    console.log(goToBarTx)
+    console.log(`${npc.name} chose: goToBar`)
   } catch (error) {
     throw error;
   }
@@ -185,7 +193,25 @@ export const goToBar = async (npc) => {
 
 export const goToHome = async (npc) => {
   try {
-    console.log(`${npc.name} chose: goToHome`);
+    if (npc.currentLocation === "Home") {
+      console.log("Already at home")
+      return
+    } else if (npc.food < 2) {
+      console.log("Not enough food")
+      return
+    }
+    const goToHomeTx = await operatorContract.goToHome(npc.tokenId);
+    console.log(goToHomeTx)
+    const burnFood = await tokenboundClient.transferNFT({
+      account: npc.tba,
+      tokenType: 'ERC1155',
+      tokenContract: foodContractAddress,
+      tokenId: 0,
+      recipientAddress: '0x000000000000000000000000000000000000dEaD',
+      amount: 2,
+    })
+    console.log(burnFood)
+    console.log(`${npc.name} chose: goToHome`)
   } catch (error) {
     throw error;
   }
@@ -193,7 +219,13 @@ export const goToHome = async (npc) => {
 
 export const goToSupplyDepot = async (npc) => {
   try {
-    console.log(`${npc.name} chose: goToSupplyDepot`);
+    if (npc.currentLocation === "Supply Depot") {
+      console.log("Already at supply depot")
+      return
+    }
+    const goToSupplyDepotTx = await operatorContract.goToSupplyDepot(npc.tokenId);
+    console.log(goToSupplyDepotTx)
+    console.log(`${npc.name} chose: goToSupplyDepot`)
   } catch (error) {
     throw error;
   }
@@ -201,7 +233,21 @@ export const goToSupplyDepot = async (npc) => {
 
 export const buySupplies = async (npc) => {
   try {
-    console.log(`${npc.name} chose: buySupplies`);
+    if (npc.credits < 1) {
+      console.log("Not enough credits")
+      return
+    }
+    const burnCredits = await tokenboundClient.transferERC20({
+      account: npc.tba,
+      amount: 1,
+      recipientAddress: '0x000000000000000000000000000000000000dEaD',
+      erc20tokenAddress: currencyContractAddress,
+      erc20tokenDecimals: 18,
+    })
+    console.log(burnCredits)
+    const mintSupplies = await operatorContract.supplyNPC(npc.tba, 1)
+    console.log(mintSupplies)
+    console.log(`${npc.name} chose: buySupplies`)
   } catch (error) {
     throw error;
   }
@@ -209,7 +255,22 @@ export const buySupplies = async (npc) => {
 
 export const sellSupplies = async (npc) => {
   try {
-    console.log(`${npc.name} chose: sellSupplies`);
+    if (npc.supplies < 1) {
+      console.log("Not enough supplies")
+      return
+    }
+    const burnSupplies = await tokenboundClient.transferNFT({
+      account: npc.tba,
+      tokenType: 'ERC1155',
+      tokenContract: suppliesContractAddress,
+      tokenId: 0,
+      recipientAddress: '0x000000000000000000000000000000000000dEaD',
+      amount: 1,
+    })
+    console.log(burnSupplies)
+    const mintCredits = await operatorContract.fundNPC(npc.tba, 1);
+    console.log(mintCredits)
+    console.log(`${npc.name} chose: sellSupplies`)
   } catch (error) {
     throw error;
   }
@@ -217,8 +278,27 @@ export const sellSupplies = async (npc) => {
 
 export const launchSupplyMission = async (npc) => {
   try {
-    console.log(`${npc.name} chose: launchSupplyMission`);
+    if (npc.credits < 5) {
+      console.out("Not enough credits")
+      return
+    } else if (npc.currentLocation !== "Supply Depot") {
+      console.log("Must be at supply depot")
+      return
+    }
+    const burnCredits = await tokenboundClient.transferERC20({
+      account: npc.tba,
+      amount: 5,
+      recipientAddress: '0x000000000000000000000000000000000000dEaD',
+      erc20tokenAddress: currencyContractAddress,
+      erc20tokenDecimals: 18,
+    })
+    console.log(burnCredits)
+    const mintFood = await operatorContract.feedNPC(npc.tba, 10)
+    console.log(mintFood)
+    const supplyNPC = await operatorContract.supplyNPC(npc.tba, 10)
+    console.log(supplyNPC)
+    console.log(`${npc.name} chose: launchSupplyMission`)
   } catch (error) {
     throw error;
   }
-};
+}
