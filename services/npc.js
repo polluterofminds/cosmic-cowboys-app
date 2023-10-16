@@ -184,7 +184,8 @@ export const goToBar = async (npc) => {
       return
     }
     const goToBarTx = await operatorContract.goToBar(npc.tokenId);
-    console.log(goToBarTx)
+    const goToBarTxReceipt = await goToBarTx.wait();
+    console.log(goToBarTxReceipt)
     console.log(`${npc.name} chose: goToBar`)
     getNPCState();
   } catch (error) {
@@ -202,7 +203,8 @@ export const goToHome = async (npc) => {
       return
     }
     const goToHomeTx = await operatorContract.goToHome(npc.tokenId);
-    console.log(goToHomeTx)
+    const goToHomeTxReceipt = await goToHomeTx.wait();
+    console.log(goToHomeTxReceipt)
     const burnFood = await tokenboundClient.transferNFT({
       account: npc.tba,
       tokenType: 'ERC1155',
@@ -226,7 +228,8 @@ export const goToSupplyDepot = async (npc) => {
       return
     }
     const goToSupplyDepotTx = await operatorContract.goToSupplyDepot(npc.tokenId);
-    console.log(goToSupplyDepotTx)
+    const goToSupplyDepotTxReceipt = await goToSupplyDepotTx.wait();
+    console.log(goToSupplyDepotTxReceipt)
     console.log(`${npc.name} chose: goToSupplyDepot`)
     getNPCState();
   } catch (error) {
@@ -253,7 +256,8 @@ export const buySupplies = async (npc) => {
     })
     console.log(burnCredits)
     const mintSupplies = await operatorContract.supplyNPC(npc.tba, 1)
-    console.log(mintSupplies)
+    const mintSuppliesTxReceipt = await mintSupplies.wait();
+    console.log(mintSuppliesTxReceipt)
     console.log(`${npc.name} chose: buySupplies`)
     getNPCState();
   } catch (error) {
@@ -281,9 +285,11 @@ export const sellSupplies = async (npc) => {
       recipientAddress: '0x000000000000000000000000000000000000dEaD',
       amount: 1,
     })
-    console.log(burnSupplies)
+    const burnSuppliesTxReceipt = await burnSupplies.wait();
+    console.log(burnSuppliesTxReceipt)
     const mintCredits = await operatorContract.fundNPC(npc.tba, 1);
-    console.log(mintCredits)
+    const mintCreditsTxReceipt = await mintCredits.wait();
+    console.log(mintCreditsTxReceipt)
     console.log(`${npc.name} chose: sellSupplies`)
     getNPCState();
   } catch (error) {
@@ -314,11 +320,14 @@ export const launchSupplyMission = async (npc) => {
     })
     console.log(burnCredits)
     const launchMission = await operatorContract.launchSupplyMission(npc.tokenId)
-    console.log(launchMission)
+    const launchMissionTxReceipt = await launchMission.wait();
+    console.log(launchMissionTxReceipt)
     const mintFood = await operatorContract.feedNPC(npc.tba, 10)
-    console.log(mintFood)
+    const mintFoodTxReceipt = await mintFood.wait();
+    console.log(mintFoodTxReceipt)
     const supplyNPC = await operatorContract.supplyNPC(npc.tba, 10)
-    console.log(supplyNPC)
+    const supplyNPCTxReceipt = await supplyNPC.wait();
+    console.log(supplyNPCTxReceipt)
     console.log(`${npc.name} chose: launchSupplyMission`)
     getNPCState();
   } catch (error) {
