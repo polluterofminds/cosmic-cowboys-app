@@ -1,0 +1,12 @@
+{
+  "crons": [
+    {
+      "path": "/api/getNpc",
+      "schedule": "*/5 * * * *"
+    },
+    {
+      "path": "/api/npcDecisions",
+      "schedule": "*/5 * * * *"
+    }
+  ]
+}

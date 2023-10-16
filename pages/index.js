@@ -108,8 +108,7 @@ export default function Home({ npcs, hash }) {
   }, [web3AuthModalPack])
 
   const fetchCachedMiners = async () => {
-    console.log("fetching from blockchain...");
-    fetch("/api/getNpc");
+    // fetch("/api/getNpc");
     console.log("Fetching from cache")
     const res = await fetch("/api/getNpc?cached=true");
     const json = await res.json();
@@ -119,7 +118,9 @@ export default function Home({ npcs, hash }) {
       //  @TODO Fire an alert
       setMiners(mergedNpcData);
       setSelectedMiner(mergedNpcData.find((m) => m.tokenId === selectedMiner.tokenId));
-    }    
+    } else {
+      console.log("No updates");
+    }
   }
 
   const login = async () => {
