@@ -96,7 +96,7 @@ export default async function handler(req, res) {
         try {
           console.log(npc.name);
           const response = await fetch(
-            "http://localhost:3000/api/npcDecisions",
+            `${process.env.HOSTED_URL}/api/npcDecisions`,
             {
               method: "POST",
               headers: {
