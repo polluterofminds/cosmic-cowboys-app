@@ -2,18 +2,33 @@ import { Alchemy, Network } from "alchemy-sdk";
 import { getFiles, uploadJson } from "./storage";
 const { TokenboundClient } = require("@tokenbound/sdk");
 const { ethers } = require("ethers");
-const provider = new ethers.AlchemyProvider("sepolia", process.env.ALCHEMY_KEY);
+const { createWalletClient, http } = require('viem')
+const { privateKeyToAccount } = require('viem/accounts')
+const { baseGoerli } = require('viem/chains')
+const provider = new ethers.JsonRpcProvider(process.env.ALCHEMY_URL + process.env.ALCHEMY_KEY)
 const foodContractAddress = process.env.FOOD_CONTRACT_ADDRESS;
 const suppliesContractAddress = process.env.SUPPLIES_CONTRACT_ADDRESS;
 const currencyContractAddress = process.env.CURRENCY_CONTRACT_ADDRESS;
+const registryContractAddress = process.env.REGISTRY_CONTRACT_ADDRESS;
+const accountContractAddress = process.env.ACCOUNT_CONTRACT_ADDRESS;
+
+const account = privateKeyToAccount(`0x` + process.env.SERVER_WALLET_PRIVATE_KEY)
+
+const walletClient = createWalletClient({
+  account,
+  chain: baseGoerli,
+  transport: http(process.env.ALCHEMY_URL + process.env.ALCHEMY_KEY)
+})
+
 
 const wallet = new ethers.Wallet(
   process.env.SERVER_WALLET_PRIVATE_KEY,
   provider
 );
+
 const config = {
   apiKey: process.env.ALCHEMY_KEY,
-  network: Network.ETH_SEPOLIA
+  network: Network.BASE_GOERLI
 };
 const operatorAbi = require("./operatorAbi.json").abi;
 const alchemy = new Alchemy(config);
@@ -23,10 +38,22 @@ const operatorContract = new ethers.Contract(
   operatorAbi,
   wallet
 );
-const tokenboundClient = new TokenboundClient({ signer: wallet, chainId: 11155111 });
+const tokenboundClient = new TokenboundClient({
+  walletClient: walletClient,
+  chain: baseGoerli,
+  chainId: 84531,
+  implementationAddress: accountContractAddress,
+  registryAddress: registryContractAddress,
+  publicClientRPCUrl: process.env.ALCHEMY_URL + process.env.ALCHEMY_KEY,
+})
 
 export const getNPCStateFromBlockchain = async () => {
-  const tokenboundClient = new TokenboundClient({ signer: wallet, chainId: 11155111 });
+  const tokenboundClient = new TokenboundClient({
+    walletClient: walletClient,
+    chain: baseGoerli,
+    implementationAddress: accountContractAddress,
+    registryAddress: registryContractAddress,
+  })
   try {
     const npcsData = await alchemy.nft.getNftsForOwner(
       process.env.SERVER_WALLET_ADDRESS,
