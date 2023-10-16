@@ -10,7 +10,7 @@ const Messages = ({ messages, selectedMiner, address, userInfo }) => {
   return (
     <div className="lg:p-6 w-full max-h-[60vh] overflow-scroll no-scrollbar">
       {
-        messages.map((m, index) => {
+        messages?.map((m, index) => {
           if(m.senderAddress === address) {            
             return (
               <div className="w-full flex align-end justify-end mt-2" key={index}>

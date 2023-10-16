@@ -35,10 +35,10 @@ const ChatLeftSide = ({
           <Card customClasses="w-[90%]">
             <div className="p-6">
               <GradientHeading customClasses="text-3xl font-bold font-sans">
-                {selectedMiner.name}
+                {selectedMiner?.name}
               </GradientHeading>
               <div className="no-scrollbar mt-2 max-h-[20vh] overflow-scroll">
-                {selectedMiner.description.split("\n").map((p, index) => {
+                {selectedMiner?.description?.split("\n").map((p, index) => {
                   return (
                     <p className="mt-2 text-lg text-white/60" key={index}>
                       {p}

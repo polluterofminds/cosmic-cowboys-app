@@ -7,8 +7,8 @@ const Vitals = ({ selectedMiner }) => {
   const getVitals = (vital) => {
     switch (vital) {
       case "health":
-        const health = selectedMiner.health;
-        const maxHealth = selectedMiner.maxHealth;
+        const health = selectedMiner?.health;
+        const maxHealth = selectedMiner?.maxHealth;
         const healthArray = [];
         let count = 0;
         while (count < health) {
@@ -40,7 +40,7 @@ const Vitals = ({ selectedMiner }) => {
         let foodCount = 0;
         const foodArray = [];
 
-        while (foodCount < selectedMiner.food) {
+        while (foodCount < selectedMiner?.food) {
           foodArray.push({ full: true });
           foodCount++;
         }
@@ -64,7 +64,7 @@ const Vitals = ({ selectedMiner }) => {
         let supplyCount = 0;
         const supplyArray = [];
 
-        while (supplyCount < selectedMiner.food) {
+        while (supplyCount < selectedMiner?.food) {
           supplyArray.push({ full: true });
           supplyCount++;
         }
@@ -86,7 +86,7 @@ const Vitals = ({ selectedMiner }) => {
         );
       case "credits": 
           return (
-            <p className="text-3xl text-credits -mb-[11px]">{selectedMiner.credits}<span className="text-xl ml-2">🪙</span></p>
+            <p className="text-3xl text-credits -mb-[11px]">{selectedMiner?.credits}<span className="text-xl ml-2">🪙</span></p>
           )
       default:
         return [];

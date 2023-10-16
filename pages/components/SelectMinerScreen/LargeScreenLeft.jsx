@@ -10,7 +10,6 @@ import RightTab from "../tabs/RightTab";
 const LargeScreenLeft = ({ miners, selectMiner }) => {
   const handleSelect = (m) => {
     const element = document.getElementById("miner-bio");
-    console.log(element);
     element.scrollTo()
     selectMiner(m);
   }
@@ -48,23 +47,23 @@ const LargeScreenLeft = ({ miners, selectMiner }) => {
               <Card customClasses="p-4">
                 {/* Mobile View */}
                 <div className="lg:hidden block no-scrollbar max-h-[30vh] overflow-scroll">
-                  {miners.map((m) => {
+                  {miners?.map((m) => {
                     return (
                       <div
                         aria-label="button"
                         onClick={() => handleSelect(m)}
-                        key={m.image}
+                        key={m?.image}
                         className="align-center mb-2 flex h-12 w-full cursor-pointer items-center"
                       >
                         <img
                           src={`https://${
                             process.env.NEXT_PUBLIC_GATEWAY_URL
-                          }/ipfs/${m.image.split("://")[1]}`}
-                          alt={m.name}
+                          }/ipfs/${m?.image?.split("://")[1]}`}
+                          alt={m?.name}
                           className="h-10 w-10 rounded-full"
                         />
                         <GradientHeading customClasses="h-8 ml-2 text-xl font-sans">
-                          {m.name.toUpperCase()}
+                          {m?.name?.toUpperCase()}
                         </GradientHeading>
                       </div>
                     );
@@ -72,23 +71,23 @@ const LargeScreenLeft = ({ miners, selectMiner }) => {
                 </div>
                 {/* Large View */}
                 <div className="hidden lg:block no-scrollbar max-h-[30vh] overflow-scroll">
-                  {miners.map((m) => {
+                  {miners?.map((m) => {
                     return (
                       <div
                         aria-label="button"
                         onClick={() => selectMiner(m)}
-                        key={m.image}
+                        key={m?.image}
                         className="align-center mb-2 flex h-12 w-full cursor-pointer items-center"
                       >
                         <img
                           src={`https://${
                             process.env.NEXT_PUBLIC_GATEWAY_URL
-                          }/ipfs/${m.image.split("://")[1]}`}
-                          alt={m.name}
+                          }/ipfs/${m?.image?.split("://")[1]}`}
+                          alt={m?.name}
                           className="h-10 w-10 rounded-full"
                         />
                         <GradientHeading customClasses="h-8 ml-2 text-xl font-sans">
-                          {m.name.toUpperCase()}
+                          {m?.name?.toUpperCase()}
                         </GradientHeading>
                       </div>
                     );

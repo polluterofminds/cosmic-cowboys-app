@@ -21,14 +21,14 @@ const LargeScreenRight = ({ miners, selectedMiner, setChatting, startChatting })
                 <img
                   className="lg:h-20 lg:w-20 h-12 w-12 rounded-full"
                   src={`https://${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${
-                    selectedMiner.image.split("://")[1]
+                    selectedMiner?.image?.split("://")[1]
                   }`}
-                  alt={selectedMiner.name}
+                  alt={selectedMiner?.name}
                 />
                 <div className="w-full lg:ml-2">
                   <div className="align-center lg:flex items-center justify-between">
                     <GradientHeading customClasses="font-sans font-bold lg:text-4xl text-2xl ml-2">
-                      {selectedMiner.name}
+                      {selectedMiner?.name}
                     </GradientHeading>
                     <button
                       type="button"
@@ -39,7 +39,7 @@ const LargeScreenRight = ({ miners, selectedMiner, setChatting, startChatting })
                     </button>
                   </div>
                   <div className="pre-wrap mt-6 lg:ml-2 lg:mr-10 text-white/60 font-semibold font-sans lg:text-xl text-lg">
-                    {selectedMiner.description.split("\n").map((p, index) => {
+                    {selectedMiner?.description?.split("\n").map((p, index) => {
                       return (
                         <p className="mb-2" key={index}>{p}</p>
                       )
