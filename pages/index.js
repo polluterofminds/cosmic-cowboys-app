@@ -20,9 +20,10 @@ const { ethers } = require("ethers");
 const connectedHandler = (data) => console.log('CONNECTED', data)
 const disconnectedHandler = (data) => console.log('DISCONNECTED', data)
 
-export default function Home({ miners }) {
+export default function Home({ npcs, hash }) {
   const [authenticated, setAuthenticated] = useState(null);
-  const [selectedMiner, setSelectedMiner] = useState(miners[0]);
+  const [miners, setMiners] = useState(npcs);
+  const [selectedMiner, setSelectedMiner] = useState(npcs[0]);
   const [chatting, setChatting] = useState(false);
   const [web3AuthModalPack, setWeb3AuthModalPack] = useState()
   const [safeAuthSignInResponse, setSafeAuthSignInResponse] = useState(null)
@@ -31,6 +32,13 @@ export default function Home({ miners }) {
   const [messages, setMessages] = useState([]);
   const [xmtpClient, setXmtp] = useState(null);
   const [xmtpConversation, setConversation] = useState(null);
+  const [cachedIndexHash, setCachedIndexHash] = useState(hash);
+
+  useEffect(() => {
+    setInterval(() => {
+      fetchCachedMiners();
+    }, (1000 * 30))    
+  }, []);
 
   useEffect(() => {
     ;(async () => {
@@ -88,7 +96,7 @@ export default function Home({ miners }) {
         web3AuthModalPack.unsubscribe(ADAPTER_EVENTS.CONNECTED, connectedHandler)
         web3AuthModalPack.unsubscribe(ADAPTER_EVENTS.DISCONNECTED, disconnectedHandler)
       }
-    })()
+    })()    
   }, [])
 
   useEffect(() => {
@@ -98,6 +106,21 @@ export default function Home({ miners }) {
       })()
     }
   }, [web3AuthModalPack])
+
+  const fetchCachedMiners = async () => {
+    console.log("fetching from blockchain...");
+    fetch("/api/getNpc");
+    console.log("Fetching from cache")
+    const res = await fetch("/api/getNpc?cached=true");
+    const json = await res.json();
+    const { hash, mergedNpcData } = json;
+    if(hash !== cachedIndexHash) {
+      console.log("New hash");
+      //  @TODO Fire an alert
+      setMiners(mergedNpcData);
+      setSelectedMiner(mergedNpcData.find((m) => m.tokenId === selectedMiner.tokenId));
+    }    
+  }
 
   const login = async () => {
     if (!web3AuthModalPack) return
@@ -192,10 +215,11 @@ export default function Home({ miners }) {
 }
 
 export async function getStaticProps() {
-  const miners = await getNPCState();
+  const {hash, mergedNpcData} = await getNPCState();
   return {
     props: {
-      miners,
+      hash,
+      npcs: mergedNpcData,
     },
   };
 }

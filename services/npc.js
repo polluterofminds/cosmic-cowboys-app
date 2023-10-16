@@ -26,6 +26,7 @@ const operatorContract = new ethers.Contract(
 const tokenboundClient = new TokenboundClient({ signer: wallet, chainId: 5 });
 
 export const getNPCStateFromBlockchain = async () => {
+  console.log("Getting updated state from blockchain...");
   const tokenboundClient = new TokenboundClient({ signer: wallet, chainId: 5 });
   try {
     const npcsData = await alchemy.nft.getNftsForOwner(
@@ -95,9 +96,9 @@ export const getNPCStateFromBlockchain = async () => {
       },
     };
     const hashData = await uploadJson({ body: mergedNpcData, options });
-    console.log(hashData);
+    console.log("Updated cache: ", hashData);
 
-    return mergedNpcData;
+    return {hash: null, mergedNpcData};
   } catch (error) {
     console.log(error);
     throw error;
@@ -127,7 +128,7 @@ export const getNPCState = async () => {
     const data = await fetch(`https://${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${newest.ipfs_pin_hash}`);
     const text = await data.text();
     const json = JSON.parse(text);
-    return json;
+    return {hash: newest.ipfs_pin_hash, mergedNpcData: json};
   } catch (error) {
     console.log(error);
     throw error;
@@ -213,7 +214,6 @@ export const goToHome = async (npc) => {
     })
     console.log(burnFood)
     console.log(`${npc.name} chose: goToHome`)
-    getNPCState();
   } catch (error) {
     throw error;
   }
@@ -228,7 +228,6 @@ export const goToSupplyDepot = async (npc) => {
     const goToSupplyDepotTx = await operatorContract.goToSupplyDepot(npc.tokenId);
     console.log(goToSupplyDepotTx)
     console.log(`${npc.name} chose: goToSupplyDepot`)
-    getNPCState();
   } catch (error) {
     throw error;
   }
@@ -255,7 +254,6 @@ export const buySupplies = async (npc) => {
     const mintSupplies = await operatorContract.supplyNPC(npc.tba, 1)
     console.log(mintSupplies)
     console.log(`${npc.name} chose: buySupplies`)
-    getNPCState();
   } catch (error) {
     throw error;
   }
@@ -285,7 +283,6 @@ export const sellSupplies = async (npc) => {
     const mintCredits = await operatorContract.fundNPC(npc.tba, 1);
     console.log(mintCredits)
     console.log(`${npc.name} chose: sellSupplies`)
-    getNPCState();
   } catch (error) {
     throw error;
   }
@@ -318,7 +315,6 @@ export const launchSupplyMission = async (npc) => {
     const supplyNPC = await operatorContract.supplyNPC(npc.tba, 10)
     console.log(supplyNPC)
     console.log(`${npc.name} chose: launchSupplyMission`)
-    getNPCState();
   } catch (error) {
     throw error;
   }

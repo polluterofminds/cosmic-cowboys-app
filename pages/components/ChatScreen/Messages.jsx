@@ -16,7 +16,7 @@ const Messages = ({ messages, selectedMiner, address, userInfo }) => {
               <div className="w-full flex align-end justify-end mt-2" key={index}>
                 <div className="w-3/4 flex justify-end">
                   <div className="bg-primary p-2 rounded-xl"><p>{m.content.split(`${selectedMiner.tokenId} -`)[1]}</p></div>
-                  <img className="ml-2 w-8 h-8 rounded-full" referrerpolicy="no-referrer" src={userInfo.profileImage || placeholderAvatar} alt={address}/>                  
+                  <img className="ml-2 w-8 h-8 rounded-full" referrerPolicy="no-referrer" src={userInfo.profileImage || placeholderAvatar} alt={address}/>                  
                 </div>
               </div>
             )
