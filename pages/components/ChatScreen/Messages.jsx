@@ -5,7 +5,7 @@ const placeholderAvatar = "https://lh3.googleusercontent.com/a/ACg8ocJTmAB0QsXy9
 const Messages = ({ messages, selectedMiner, address, userInfo }) => {
   const ref = useRef();
   useEffect(() => {
-    ref.current.scrollIntoView({behavior: "smooth", block:"end"})
+    ref.current.scrollIntoView({behavior: "smooth"})
   }, [messages]);
   return (
     <div className="lg:p-6 w-full max-h-[60vh] overflow-scroll no-scrollbar">
@@ -13,19 +13,21 @@ const Messages = ({ messages, selectedMiner, address, userInfo }) => {
         messages?.map((m, index) => {
           if(m.senderAddress === address) {            
             return (
-              <div className="w-full flex align-end justify-end mt-2" key={index}>
-                <div className="w-3/4 flex justify-end">
-                  <div className="bg-primary p-2 rounded-xl"><p>{m.content.split(`${selectedMiner.tokenId} -`)[1]}</p></div>
-                  <img className="ml-2 w-8 h-8 rounded-full" referrerPolicy="no-referrer" src={userInfo.profileImage || placeholderAvatar} alt={address}/>                  
+              <div className="w-full flex align-start justify-start mt-2" key={index}>
+                <div className="font-sans">
+                 <p className="text-[#FFCC00]">Me: {m.content.split(`${selectedMiner.tokenId} -`)[1]}</p>
+                 <p className="text-primary">// End Transmission</p>
+                  {/* <img className="ml-2 w-8 h-8 rounded-full" referrerPolicy="no-referrer" src={userInfo.profileImage || placeholderAvatar} alt={address}/>                   */}
                 </div>
               </div>
             )
           } else {
             return (
-              <div className="w-full flex align-start justify-start mt-2" key={index}>
-                <div className="w-3/4 flex justify-start">
-                  <img className="mr-2 w-8 h-8 rounded-full" src={`https://${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${selectedMiner.image.split("://")[1]}`} alt={selectedMiner.name}/>  
-                  <div className="bg-light p-2 rounded-xl"><p>{m.content.split(`${selectedMiner.tokenId} -`)[1]}</p></div>
+              <div className="w-full flex align-start justify-start mt-4" key={index}>
+                <div className="font-sans">
+                  {/* <img className="mr-2 w-8 h-8 rounded-full" src={`https://${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${selectedMiner.image.split("://")[1]}`} alt={selectedMiner.name}/>   */}
+                  <p className="text-[#FFCC00]">{selectedMiner.name}: {" "} {m.content.split(`${selectedMiner.tokenId} -`)[1]}</p>
+                  <p className="text-primary">// End Transmission</p>
                 </div>
               </div>
             )

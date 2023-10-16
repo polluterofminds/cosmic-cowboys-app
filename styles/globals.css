@@ -30,6 +30,107 @@
       mix-blend-mode: plus-lighter;
       box-shadow: 0px 1px 10px 0px #FF5E05;
     }
+
+    @keyframes flicker {
+      0% {
+        opacity: 0.38769;
+      }
+      5% {
+        opacity: 0.21917;
+      }
+      10% {
+        opacity: 0.73398;
+      }
+      15% {
+        opacity: 0.00513;
+      }
+      20% {
+        opacity: 0.81141;
+      }
+      25% {
+        opacity: 0.84142;
+      }
+      30% {
+        opacity: 0.11778;
+      }
+      35% {
+        opacity: 0.38816;
+      }
+      40% {
+        opacity: 0.86209;
+      }
+      45% {
+        opacity: 0.01313;
+      }
+      50% {
+        opacity: 0.27132;
+      }
+      55% {
+        opacity: 0.41672;
+      }
+      60% {
+        opacity: 0.49039;
+      }
+      65% {
+        opacity: 0.52711;
+      }
+      70% {
+        opacity: 0.29961;
+      }
+      75% {
+        opacity: 0.53297;
+      }
+      80% {
+        opacity: 0.53011;
+      }
+      85% {
+        opacity: 0.53528;
+      }
+      90% {
+        opacity: 0.12542;
+      }
+      95% {
+        opacity: 0.57777;
+      }
+      100% {
+        opacity: 0.14733;
+      }
+    }
+
+    .crt {      
+      animation-duration: 0.01s;
+      animation-name: flicker;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+    }
+    .crt::before {
+      content: " ";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+      z-index: 2;
+      background-size: 100% 2px, 3px 100%;
+      pointer-events: none;
+    }
+
+    .crt::after {
+      content: " ";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: rgba(18, 16, 16, 0.1);
+      opacity: 0;
+      z-index: 2;
+      pointer-events: none;
+      animation: flicker 0.15s infinite;
+    }
   }
 }
 

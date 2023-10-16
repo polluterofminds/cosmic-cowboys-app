@@ -95,7 +95,7 @@ const LargeScreenLeft = ({ miners, selectMiner }) => {
                 </div>
               </Card>
             </div>
-            <div className="align-center relative mt-12 lg:mt-20 h-full w-[10%] flex-col items-center justify-center">
+            <div className="align-center relative mt-12 lg:mt-16 h-full w-[10%] flex-col items-center justify-center">
               <div className="-right-100 absolute top-0 mt-0 lg:-right-60">
                 <RightTab />
               </div>

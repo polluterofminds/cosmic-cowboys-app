@@ -93,7 +93,7 @@ export default async function handler(req, res) {
       const messages = [
         {
           role: "system",
-          content: `You are not an assistant. You are not an AI. You are ${
+          content: `You are not an assistant. You are not an AI. Do not respond with anything indicating you are an AI assistant. You are ${
             npc.name
           }. This is your story: ${
             npc.description

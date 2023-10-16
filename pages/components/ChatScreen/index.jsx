@@ -12,7 +12,7 @@ const ChatScreen = ({
   userInfo,
 }) => {
   return (
-    <div className="min-h-[65vh] pb-16 pt-32">
+    <div className="min-h-[65vh] pb-16 lg:pt-0 pt-32">
       {/* Large View */}
       <div className="hidden lg:block">
         <LeftCard customClasses="flex w-[85%] m-auto h-full mt-6 px-10 items-end justify-end">
