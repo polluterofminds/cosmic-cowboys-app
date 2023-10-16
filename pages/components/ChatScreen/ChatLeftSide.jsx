@@ -55,9 +55,10 @@ const ChatLeftSide = ({
             <div className="mb-[5px] h-6 w-6 rounded-full border-[0.5px] border-primary" />
           </div>
         </div>
-        <div className="mt-2 h-72 w-72 ml-8 relative hidden lg:block">
+        <div className="mt-2 h-72 w-72 ml-8 relative hidden lg:block border border-primary">
+          <div className="w-full bg-mainBrown text-center"><p className="font-sans text-md text-white">Live video</p></div>
           <div className="h-72 w-72 absolute z-50 crt" />
-          <img className="h-72 w-72 absolute z-10" src={`https://${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${selectedMiner?.image?.split("://")[1]}`} alt="Radar" />
+          <img className="h-72 w-72 absolute z-10 border border-b-primary border-l-primary border-r-primary border-t-transparent" src={`https://${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${selectedMiner?.image?.split("://")[1]}`} alt="Radar" />
           {/* <img className="mr-8 h-72" src="/HUD.png" alt="Radar" /> */}
         </div>
       </div>

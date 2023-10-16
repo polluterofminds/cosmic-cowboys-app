@@ -116,8 +116,8 @@ export default function Home({ npcs, hash }) {
     if(hash !== cachedIndexHash) {
       console.log("New hash");
       //  @TODO Fire an alert
-      setMiners(mergedNpcData);
-      setSelectedMiner(mergedNpcData.find((m) => m.tokenId === selectedMiner.tokenId));
+      setMiners(mergedNpcData?.sort((a,b) => (a?.credits < b?.credits) ? 1 : ((b?.credits < a?.credits) ? -1 : 0)));
+      //setSelectedMiner(mergedNpcData.find((m) => m.tokenId === selectedMiner.tokenId));
     } else {
       console.log("No updates");
     }

@@ -110,12 +110,10 @@ export default async function handler(req, res) {
         },
         ...messageHistory.slice(Math.max(messageHistory.length - 8, 0)),
       ];
-      console.log(messages);
 
-      const { response } = await generateResponse(messages, 1, functions);
+      const { response } = await generateResponse(messages.filter((m) => !m.content.includes("***SYSTEM MESSAGE")), 1, functions);
 
       if (response.function_call) {
-        //  @TODO Reward the player for triggering a function call
         switch (response.function_call.name) {
           case "goToHome":
             await goToHome(npc);
@@ -145,6 +143,8 @@ export default async function handler(req, res) {
         await conversation.send(
           `${npc.tokenId} - Action taken: ${response.function_call.name}`
         );
+        //  @TODO Reward the player for triggering a function call
+        await conversation.send(`${npc.tokenId} - \n***SYSTEM MESSAGE***\nThe government thanks you for contributing to the safety of our miners and has rewarded you for your effort.\n***END SYSTEM MESSAGE***`)
         fetch(`${process.env.HOSTED_URL}/api/getNpc`);
       } else {
         await conversation.send(response.content);

@@ -103,7 +103,7 @@ const Vitals = ({ selectedMiner }) => {
         </div>
         <div className="flex justify-between">
           <div>
-            <div className="grid grid-flow-col grid-rows-3 gap-2">
+            <div className="grid grid-flow-col grid-rows-4 gap-2">
               {getVitals("health")}
             </div>
             <GradientHeading customClasses="font-sans text-md">
@@ -111,7 +111,7 @@ const Vitals = ({ selectedMiner }) => {
             </GradientHeading>
           </div>
           <div>
-            <div className="grid grid-flow-col grid-rows-3 gap-2">
+            <div className="grid grid-flow-col grid-rows-4 gap-2">
               {getVitals("food")}
             </div>
             <GradientHeading customClasses="font-sans text-md">
@@ -119,7 +119,7 @@ const Vitals = ({ selectedMiner }) => {
             </GradientHeading>
           </div>
           <div>
-            <div className="grid grid-flow-col grid-rows-3 gap-2">
+            <div className="grid grid-flow-col grid-rows-4 gap-2">
               {getVitals("supplies")}
             </div>
             <GradientHeading customClasses="font-sans text-md">

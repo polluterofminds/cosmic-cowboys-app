@@ -30,8 +30,7 @@ const LargeScreenLeft = ({ miners, selectMiner }) => {
               <Card customClasses="p-4">
                 <p className="font-sans text-lg font-semibold text-white/60">
                   This is your terminal dashboard. Choose a miner to communicate
-                  with. Just be aware, social flares interupt conversations
-                  frequently and miners can be unruly and unpredictable.
+                  with. Miners are sorted by credits as credits are the best indicator for success on Ganymede.
                 </p>
               </Card>
             </div>
@@ -71,6 +70,7 @@ const LargeScreenLeft = ({ miners, selectMiner }) => {
                 </div>
                 {/* Large View */}
                 <div className="hidden lg:block no-scrollbar max-h-[30vh] overflow-scroll">
+                  <h1 className="font-sans text-2xl text-white">Miners</h1>
                   {miners?.map((m) => {
                     return (
                       <div
@@ -86,9 +86,12 @@ const LargeScreenLeft = ({ miners, selectMiner }) => {
                           alt={m?.name}
                           className="h-10 w-10 rounded-full"
                         />
-                        <GradientHeading customClasses="h-8 ml-2 text-xl font-sans">
+                        <div>
+                        <GradientHeading customClasses="h-6 ml-2 text-xl font-sans">
                           {m?.name?.toUpperCase()}
                         </GradientHeading>
+                        <p className="ml-2 text-lg text-credits font-sans">{m?.credits} <span className="mt-[10px]">🪙</span></p>
+                        </div>
                       </div>
                     );
                   })}

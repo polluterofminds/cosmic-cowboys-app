@@ -26,7 +26,7 @@ const Messages = ({ messages, selectedMiner, address, userInfo }) => {
               <div className="w-full flex align-start justify-start mt-4" key={index}>
                 <div className="font-sans">
                   {/* <img className="mr-2 w-8 h-8 rounded-full" src={`https://${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${selectedMiner.image.split("://")[1]}`} alt={selectedMiner.name}/>   */}
-                  <p className="text-[#FFCC00]">{selectedMiner.name}: {" "} {m.content.split(`${selectedMiner.tokenId} -`)[1]}</p>
+                  <p className="text-[#FFCC00] whitespace-break-spaces ">{m.content.includes("***SYSTEM MESSAGE") ? "System" : selectedMiner.name}: {" "} {m.content.split(`${selectedMiner.tokenId} -`)[1]}</p>
                   <p className="text-primary">// End Transmission</p>
                 </div>
               </div>
