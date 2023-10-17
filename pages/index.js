@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import MainScreen from "./components/MainScreen";
 import AuthScreen from "./components/AuthScreen";
 import { Web3AuthModalPack } from '@safe-global/auth-kit'
+import Safe, { EthersAdapter } from '@safe-global/protocol-kit'
 import { OpenloginAdapter } from '@web3auth/openlogin-adapter'
 import {
   ADAPTER_EVENTS,
@@ -15,6 +16,7 @@ import {
 } from '@web3auth/base'
 import { getNPCState } from "@/services/npc";
 import { Client } from "@xmtp/xmtp-js";
+import abi from "../services/operatorAbi.json";
 const { ethers } = require("ethers");
 
 const connectedHandler = (data) => console.log('CONNECTED', data)
@@ -193,6 +195,24 @@ export default function Home({ npcs, hash }) {
     }
   }
 
+  const displayHelp = async () => {
+    await xmtpConversation.send(`${selectedMiner.tokenId} - \n***SYSTEM MESSAGE***\nThank you for using the GANYTERM 2000. You can send messages to miners or you can use commands for more options: \n
+    --donate (Buys credits for a miner to help them rise up on the Ganymedian leaderboards)\n
+    --tell-secret (Reveals a secret about another miner)
+  `);
+    await updateMessages();
+  }
+
+  const buyCreditsForNpc = async () => {
+    const provider = new ethers.BrowserProvider(web3AuthModalPack.getProvider())
+    const signer = await provider.getSigner()
+
+    const OperatorContract = new ethers.Contract(process.env.NEXT_PUBLIC_OPERATOR_CONTRACT_ADDRESS, abi.abi, signer)
+    await OperatorContract.donate(selectedMiner.tba, { value: ethers.parseEther("0.001") });
+    await xmtpConversation.send(`${selectedMiner.tokenId} - \n***SYSTEM MESSAGE***\nYour contribution will help ensure this miner survives another day on Ganymede. Your government thanks you.\n***END SYSTEM MESSAGE***`);
+    await updateMessages();
+  }
+
   return (
     <>
       <Head>
@@ -207,7 +227,7 @@ export default function Home({ npcs, hash }) {
       <div className="pb-10 min-h-[100vh] max-w-[100%]">            
         {
           !!provider ? 
-          <MainScreen userInfo={userInfo} address={safeAuthSignInResponse.eoa} sendMessage={sendMessage} setChatting={setChatting} startChatting={startChatting} logout={logout} chatting={chatting} miners={miners} selectMiner={selectMiner} selectedMiner={selectedMiner} messages={messages} /> : 
+          <MainScreen displayHelp={displayHelp} buyCreditsForNpc={buyCreditsForNpc} userInfo={userInfo} address={safeAuthSignInResponse.eoa} sendMessage={sendMessage} setChatting={setChatting} startChatting={startChatting} logout={logout} chatting={chatting} miners={miners} selectMiner={selectMiner} selectedMiner={selectedMiner} messages={messages} /> : 
           <AuthScreen login={login} isLoggedIn={!!provider} setAuthenticated={setAuthenticated} />
         }
       </div>

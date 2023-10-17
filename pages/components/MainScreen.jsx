@@ -15,6 +15,8 @@ const MainScreen = ({
   address,
   messages,
   userInfo,
+  buyCreditsForNpc,
+  displayHelp
 }) => {
   return (
     <div>
@@ -34,6 +36,8 @@ const MainScreen = ({
           address={address}
           messages={messages}
           userInfo={userInfo}
+          buyCreditsForNpc={buyCreditsForNpc}
+          displayHelp={displayHelp}
         />
       ) : (
         <SelectMinerScreen

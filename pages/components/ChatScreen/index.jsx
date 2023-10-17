@@ -10,6 +10,8 @@ const ChatScreen = ({
   address,
   messages,
   userInfo,
+  buyCreditsForNpc,
+  displayHelp
 }) => {
   return (
     <div className="min-h-[65vh] pb-16 lg:pt-0 pt-32">
@@ -26,6 +28,8 @@ const ChatScreen = ({
             selectedMiner={selectedMiner}
             address={address}
             messages={messages}
+            buyCreditsForNpc={buyCreditsForNpc}
+            displayHelp={displayHelp}
           />
         </LeftCard>
       </div>
@@ -38,6 +42,8 @@ const ChatScreen = ({
             selectedMiner={selectedMiner}
             address={address}
             messages={messages}
+            buyCreditsForNpc={buyCreditsForNpc}
+            displayHelp={displayHelp}
           />
         </div>
         
