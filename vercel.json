@@ -6,7 +6,7 @@
     },
     {
       "path": "/api/npcDecisions",
-      "schedule": "*/5 * * * *"
+      "schedule": "0 * * * *"
     }
   ]
 }
