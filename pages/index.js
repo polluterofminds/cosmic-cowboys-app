@@ -45,8 +45,8 @@ export default function Home({ npcs, hash }) {
   useEffect(() => {
     ;(async () => {
       const options = {
-        clientId: 'BHDEnJ-SY7nlS2PPH2mi98qUINUqGrUYyvUN9EbV794phQXTyRTqMLQGBNgiBeGkWOoGSJrvo-Skf04QzOJIRa0',
-        web3AuthNetwork: 'testnet',
+        clientId: process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID,
+        web3AuthNetwork: process.env.NODE_ENV === 'production' ? 'sapphire_mainnet' : 'testnet',
         chainConfig: {
           chainNamespace: CHAIN_NAMESPACES.EIP155,
           chainId: '0x5',
@@ -117,9 +117,7 @@ export default function Home({ npcs, hash }) {
     const { hash, mergedNpcData } = json;
     if(hash !== cachedIndexHash) {
       console.log("New hash");
-      //  @TODO Fire an alert
-      setMiners(mergedNpcData?.sort((a,b) => (a?.credits < b?.credits) ? 1 : ((b?.credits < a?.credits) ? -1 : 0)));
-      //setSelectedMiner(mergedNpcData.find((m) => m.tokenId === selectedMiner.tokenId));
+      setMiners(mergedNpcData?.sort((a,b) => (a?.credits < b?.credits) ? 1 : ((b?.credits < a?.credits) ? -1 : 0)));      
     } else {
       console.log("No updates");
     }
