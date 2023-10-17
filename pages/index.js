@@ -46,11 +46,15 @@ export default function Home({ npcs, hash }) {
     ;(async () => {
       const options = {
         clientId: process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID,
-        web3AuthNetwork: process.env.NODE_ENV === 'production' ? 'sapphire_mainnet' : 'testnet',
+        web3AuthNetwork: 'testnet',
         chainConfig: {
           chainNamespace: CHAIN_NAMESPACES.EIP155,
           chainId: '0x5',
-          rpcTarget: `https://eth-goerli.g.alchemy.com/v2/5yw4q3nVpsox1Nhnq5o3mmmn7hW3_ut6`
+          rpcTarget: `https://eth-goerli.g.alchemy.com/v2/5yw4q3nVpsox1Nhnq5o3mmmn7hW3_ut6`, 
+          displayName: "Goerli Testnet",
+          blockExplorer: "https://goerli.etherscan.io",
+          ticker: "ETH",
+          tickerName: "Ethereum",
         },
         uiConfig: {
           theme: 'dark',
