@@ -14,9 +14,10 @@ export const maxDuration = 60 * 5;
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
-    const authHeader = req.headers["authorization"];
+    const authHeader = req.headers["authorization"] || req.headers.get("authorization");
+    console.log({authHeader});
     if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-      return res.status(401).send("Unauthorized");
+      return res.status(401).send("Unauthorized on POST");
     }
     try {
       //  Get NPC details (name, description, current location, current health, current food, current supplies, current credit balance)
@@ -88,10 +89,11 @@ export default async function handler(req, res) {
       res.status(500).send("Action error");
     }
   } else {
-    try {
-      const authHeader = req.headers["authorization"];
+    try {      
+      const authHeader = req.headers["authorization"] || req.headers.get("authorization");
+      console.log({authHeader});
       if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-        return res.status(401).send("Unauthorized");
+        return res.status(401).send("Unauthorized on GET");
       }
       const { mergedNpcData: npcData } = await getNPCState();
       for (const npc of npcData) {

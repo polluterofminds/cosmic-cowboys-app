@@ -10,7 +10,8 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      sans: ['"PP NeueBit"', 'sans-serif']
+      sans: ['"PP NeueBit"', 'sans-serif'],
+      supply: ['PP Supply Mono', 'sans-serif']
     }, 
     extend: {      
       colors: {

@@ -16,7 +16,9 @@ const MainScreen = ({
   messages,
   userInfo,
   buyCreditsForNpc,
-  displayHelp
+  displayHelp, 
+  selectedTab,
+  setSelectedTab
 }) => {
   return (
     <div>
@@ -46,6 +48,8 @@ const MainScreen = ({
           selectedMiner={selectedMiner}
           setChatting={setChatting}
           startChatting={startChatting}
+          selectedTab={selectedTab} 
+          setSelectedTab={setSelectedTab}
         />
       )}
     </div>

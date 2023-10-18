@@ -81,6 +81,10 @@ export const getNPCStateFromBlockchain = async () => {
         }
       }
 
+      if(npc.name === "Valko MacLeod") {
+        console.log(npc);
+      }
+
       mergedNpcData.push(newNpc);
     }
 
@@ -128,6 +132,7 @@ export const getNPCState = async () => {
     const data = await fetch(`https://${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${newest.ipfs_pin_hash}`);
     const text = await data.text();
     const json = JSON.parse(text);
+
     return {hash: newest.ipfs_pin_hash, mergedNpcData: json?.sort((a,b) => (a?.credits < b?.credits) ? 1 : ((b?.credits < a?.credits) ? -1 : 0))};
   } catch (error) {
     console.log(error);
