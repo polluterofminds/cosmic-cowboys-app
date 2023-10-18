@@ -35,6 +35,7 @@ export default function Home({ npcs, hash }) {
   const [xmtpClient, setXmtp] = useState(null);
   const [xmtpConversation, setConversation] = useState(null);
   const [cachedIndexHash, setCachedIndexHash] = useState(hash);
+  const [selectedTab, setSelectedTab] = useState("dashboard");
 
   useEffect(() => {
     setInterval(() => {
@@ -229,7 +230,7 @@ export default function Home({ npcs, hash }) {
       <div className="pb-10 min-h-[100vh] max-w-[100%]">            
         {
           !!provider ? 
-          <MainScreen displayHelp={displayHelp} buyCreditsForNpc={buyCreditsForNpc} userInfo={userInfo} address={safeAuthSignInResponse.eoa} sendMessage={sendMessage} setChatting={setChatting} startChatting={startChatting} logout={logout} chatting={chatting} miners={miners} selectMiner={selectMiner} selectedMiner={selectedMiner} messages={messages} /> : 
+          <MainScreen selectedTab={selectedTab} setSelectedTab={setSelectedTab} displayHelp={displayHelp} buyCreditsForNpc={buyCreditsForNpc} userInfo={userInfo} address={safeAuthSignInResponse.eoa} sendMessage={sendMessage} setChatting={setChatting} startChatting={startChatting} logout={logout} chatting={chatting} miners={miners} selectMiner={selectMiner} selectedMiner={selectedMiner} messages={messages} /> : 
           <AuthScreen login={login} isLoggedIn={!!provider} setAuthenticated={setAuthenticated} />
         }
       </div>
