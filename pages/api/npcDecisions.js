@@ -10,7 +10,7 @@ import {
 } from "@/services/npc";
 import { generateResponse } from "@/services/aiService";
 
-export const maxDuration = 60 * 5;
+export const maxDuration = 300;
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
