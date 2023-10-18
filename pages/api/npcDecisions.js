@@ -14,7 +14,7 @@ export const maxDuration = 60 * 5;
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
-    const authHeader = req.headers["authorization"] || req.headers.get("authorization");
+    const authHeader = req.headers["authorization"];
     console.log({authHeader});
     if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
       return res.status(401).send("Unauthorized on POST");
@@ -90,7 +90,7 @@ export default async function handler(req, res) {
     }
   } else {
     try {      
-      const authHeader = req.headers["authorization"] || req.headers.get("authorization");
+      const authHeader = req.headers["authorization"];
       console.log({authHeader});
       if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
         return res.status(401).send("Unauthorized on GET");
