@@ -32,25 +32,25 @@ const Leaderboard = ({miners}) => {
               <div className="text-white/60">{person.tokenId}</div>                
             </div>
             <div className="w-[60%] whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
-              <div className="flex items-center">
+              <div className="lg:flex items-center">
                 <div className="h-11 w-11 flex-shrink-0">
                   <img
-                    className="h-11 w-11 rounded-full"
+                    className="lg:h-11 lg:w-11 h-8 w-8 rounded-full"
                     src={`https://${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${person.image.split("://")[1]}`}
                     alt={person.name}
                   />
                 </div>
-                <div className="ml-4">
-                  <div className="font-medium text-xl text-white/60">
+                <div className="lg:ml-4">
+                  <div className="font-medium lg:text-xl text-sm text-white/60">
                     {person.name.toUpperCase()}
                   </div>
-                 <div className="mt-1 text-white/60">{person.tba}</div>
+                 <div className="hidden lg:inline mt-1 text-white/60">{person.tba}</div>
                 </div>
               </div>
             </div>
             <div className="w-[30%] whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-              <div className="text-white/60 text-lg">{person.credits} credits</div>
-              <div className="mt-1 text-white/60">{person.health + " health, " + person.food + " food, " + person.supplies + " supplies"}</div>
+              <div className="text-white/60 lg:text-lg text-sm">{person.credits} credits</div>
+              <div className="hidden lg:inline lg:mt-1 text-white/60">{person.health + " health, " + person.food + " food, " + person.supplies + " supplies"}</div>
             </div>              
           </div>
         ))}
