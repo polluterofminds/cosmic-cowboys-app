@@ -96,6 +96,7 @@ export default async function handler(req, res) {
         return res.status(401).send("Unauthorized on GET");
       }
       const { mergedNpcData: npcData } = await getNPCState();
+      console.log("NPCs loaded: ", npcData.length)
       for (const npc of npcData) {
         try {
           console.log(npc.name);
