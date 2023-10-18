@@ -26,7 +26,7 @@ const Leaderboard = ({miners}) => {
         </div>
       </div>
       <div className="min-w-full">
-        {miners.map((person) => (
+        {miners?.map((person) => (
           <div className="border border-primary rounded-md flex w-full mb-2 items-center" key={person.tokenId}>
             <div className="w-[10%] whitespace-nowrap px-3 py-5 text-sm text-gray-500">
               <div className="text-white/60">{person.tokenId}</div>                
@@ -36,21 +36,21 @@ const Leaderboard = ({miners}) => {
                 <div className="h-11 w-11 flex-shrink-0">
                   <img
                     className="lg:h-11 lg:w-11 h-8 w-8 rounded-full"
-                    src={`https://${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${person.image.split("://")[1]}`}
-                    alt={person.name}
+                    src={`https://${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${person?.image?.split("://")[1]}`}
+                    alt={person?.name}
                   />
                 </div>
                 <div className="lg:ml-4">
                   <div className="font-medium lg:text-xl text-sm text-white/60">
-                    {person.name.toUpperCase()}
+                    {person?.name?.toUpperCase()}
                   </div>
-                 <div className="hidden lg:inline mt-1 text-white/60">{person.tba}</div>
+                 <div className="hidden lg:inline mt-1 text-white/60">{person?.tba}</div>
                 </div>
               </div>
             </div>
             <div className="w-[30%] whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-              <div className="text-white/60 lg:text-lg text-sm">{person.credits} credits</div>
-              <div className="hidden lg:inline lg:mt-1 text-white/60">{person.health + " health, " + person.food + " food, " + person.supplies + " supplies"}</div>
+              <div className="text-white/60 lg:text-lg text-sm">{person?.credits} credits</div>
+              <div className="hidden lg:inline lg:mt-1 text-white/60">{person?.health + " health, " + person.food + " food, " + person.supplies + " supplies"}</div>
             </div>              
           </div>
         ))}

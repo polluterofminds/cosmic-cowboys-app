@@ -23,20 +23,20 @@ const MobileMap = ({ miners }) => {
         <div className="absolute left-[60px] top-[20px] z-50">
           <div className="flex -space-x-2 overflow-hidden">
             {miners
-              .filter((m) => m.currentLocation === "Supply Depot")
-              .map((m, index) => {
+              ?.filter((m) => m?.currentLocation === "Supply Depot")
+              ?.map((m, index) => {
                 return (
-                  <div className="cursor-pointer relative" onMouseLeave={() => handleMouseLeave()} onMouseEnter={() => handleHover(m.name)} key={index}>
+                  <div className="cursor-pointer relative" onMouseLeave={() => handleMouseLeave()} onMouseEnter={() => handleHover(m?.name)} key={index}>
                   <img
                     className="inline-block h-4 w-4 rounded-full"
                     src={`https://${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${
-                      m.image.split("://")[1]
+                      m?.image?.split("://")[1]
                     }`}
                     alt=""
                   />
                   {
-                    hover && hoverMiner === m.name &&
-                    <p className="bg-mainBrown border border-primary rounded-md p-4 text-white/60 fixed">{m.name}</p>
+                    hover && hoverMiner === m?.name &&
+                    <p className="bg-mainBrown border border-primary rounded-md p-4 text-white/60 fixed">{m?.name}</p>
                   }
                   </div>
                 );
@@ -46,20 +46,20 @@ const MobileMap = ({ miners }) => {
         <div className="z-60 absolute left-[75px] top-[75px]">
           <div className="flex -space-x-2 overflow-hidden">
             {miners
-              .filter((m) => m.currentLocation === "Home")
-              .map((m, index) => {
+              ?.filter((m) => m?.currentLocation === "Home")
+              ?.map((m, index) => {
                 return (
-                  <div className="cursor-pointer" onMouseLeave={() => handleMouseLeave()} onMouseEnter={() => handleHover(m.name)} key={index}>
+                  <div className="cursor-pointer" onMouseLeave={() => handleMouseLeave()} onMouseEnter={() => handleHover(m?.name)} key={index}>
                   <img
                     className="inline-block h-4 w-4 rounded-full"
                     src={`https://${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${
-                      m.image.split("://")[1]
+                      m?.image?.split("://")[1]
                     }`}
                     alt=""
                   />
                   {
-                    hover && hoverMiner === m.name &&
-                    <p className="bg-mainBrown border border-primary rounded-md p-4 text-white/60 fixed">{m.name}</p>
+                    hover && hoverMiner === m?.name &&
+                    <p className="bg-mainBrown border border-primary rounded-md p-4 text-white/60 fixed">{m?.name}</p>
                   }
                   </div>
                 );
@@ -70,20 +70,20 @@ const MobileMap = ({ miners }) => {
         <div className="z-60 absolute left-[110px] top-[110px]">
           <div className="flex -space-x-2 overflow-hidden relative">
             {miners
-              .filter((m) => m.currentLocation === "Bar")
-              .map((m, index) => {
+              ?.filter((m) => m?.currentLocation === "Bar")
+              ?.map((m, index) => {
                 return (
-                  <div className="cursor-pointer relative" onMouseLeave={() => handleMouseLeave()} onMouseEnter={() => handleHover(m.name)} key={index}>
+                  <div className="cursor-pointer relative" onMouseLeave={() => handleMouseLeave()} onMouseEnter={() => handleHover(m?.name)} key={index}>
                   <img
                     className="inline-block h-4 w-4 rounded-full"
                     src={`https://${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${
-                      m.image.split("://")[1]
+                      m?.image?.split("://")[1]
                     }`}
                     alt=""
                   />
                   {
-                    hover && hoverMiner === m.name &&
-                    <p className="bg-mainBrown border border-primary rounded-md p-4 text-white/60 fixed">{m.name}</p>
+                    hover && hoverMiner === m?.name &&
+                    <p className="bg-mainBrown border border-primary rounded-md p-4 text-white/60 fixed">{m?.name}</p>
                   }
                   </div>
                 );
