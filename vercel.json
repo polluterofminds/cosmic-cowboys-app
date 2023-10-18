@@ -10,7 +10,7 @@
     }
   ], 
   "functions": {
-    "api/npcDecisions.js": {
+    "api/*.js": {
       "maxDuration": 300
     }
   }
