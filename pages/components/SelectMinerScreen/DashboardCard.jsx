@@ -4,7 +4,7 @@ import Card from "../backgrounds/Card";
 import GradientHeading from "../Typography/GradientHeading";
 import WelcomeLines from "../WelcomeLines";
 
-const DashboardCard = ({ miners, selectMiner }) => {
+const DashboardCard = ({ miners, selectMiner, handleSelect }) => {
   return (
     <div className="m-auto mt-10 w-[90%]">
       <div className="flex w-full items-center">

@@ -24,7 +24,7 @@ export default async function handler(req, res) {
       for (const conversation of conversations) {
         const messages = await conversation.messages();
         for(const message of messages) {
-          if(message.senderAddress === process.env.SERVER_WALLET_ADDRESS && message.content.includes("Action taken: ")) {
+          if((message.senderAddress === process.env.SERVER_WALLET_ADDRESS && message.content.includes("Action taken: ")) || message.content.includes("Your contribution will help ensure this miner survives another day on Ganymede")) {
             conversationData.push({
               content: message.content, 
               date: message.sent

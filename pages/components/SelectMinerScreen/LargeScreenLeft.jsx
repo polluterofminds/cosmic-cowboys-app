@@ -55,7 +55,7 @@ const LargeScreenLeft = ({
       </div>
       <LeftCard customClasses="min-h-[60vh]">
         {selectedTab === "dashboard" ? (
-          <DashboardCard miners={miners} selectMiner={selectMiner} />
+          <DashboardCard handleSelect={handleSelect} miners={miners} selectMiner={selectMiner} />
         ) : selectedTab === "leaderboard" ? (
           <LeaderboardCard />
         ) : (

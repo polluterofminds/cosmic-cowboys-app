@@ -17,11 +17,10 @@ const ChatScreen = ({
 
   useEffect(() => {
     loadActivity();
-  }, []);
+  }, [messages]);
 
   const loadActivity = async () => {
     try {
-      debugger;
       const res = await fetch(`/api/chat/activity?npcId=${selectedMiner.tokenId}`)
       const json = await res.json();
       console.log(json);
@@ -69,6 +68,7 @@ const ChatScreen = ({
           <ChatLeftSide
             selectedMiner={selectedMiner}
             setChatting={setChatting}
+            activity={activity}
           />
         
       </div>

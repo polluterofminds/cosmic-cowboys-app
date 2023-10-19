@@ -4,7 +4,7 @@ const { TokenboundClient } = require("@tokenbound/sdk");
 const { ethers } = require("ethers");
 const provider = new ethers.AlchemyProvider("goerli", process.env.ALCHEMY_KEY);
 const foodContractAddress = process.env.FOOD_CONTRACT_ADDRESS;
-const suppliesContractAddress = process.env.SUPPLIES_CONTRACT_ADDRESS;
+const suppliesContractAddress = process.env.SUPPLY_CONTRACT_ADDRESS;
 const currencyContractAddress = process.env.CURRENCY_CONTRACT_ADDRESS;
 
 const wallet = new ethers.Wallet(

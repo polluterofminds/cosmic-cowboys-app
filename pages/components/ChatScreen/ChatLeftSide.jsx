@@ -10,7 +10,6 @@ const ChatLeftSide = ({
   setChatting,
   activity
 }) => {
-  console.log({activity});
   const HudLines = () => {
     return (
       <>
@@ -68,7 +67,7 @@ const ChatLeftSide = ({
     );
   };
   return (
-    <div className="mb-10 w-2/5">
+    <div className="mb-10 lg:w-2/5 w-full">
       <div className="p-4">
         <button
           onClick={() => setChatting(false)}
@@ -118,8 +117,8 @@ const ChatLeftSide = ({
           </div>
         </div>
 
-        <div className="mt-2 flex w-full">
-          <div className="no-scrollbar max-h-72 w-[65%] overflow-scroll rounded-md border border-primary bg-mainBrown p-4">
+        <div className="mt-2 lg:w-auto w-1/2 flex m-auto">
+          <div className="no-scrollbar lg:max-h-72 h-auto lg:w-[65%] w-[100%] overflow-scroll rounded-md border border-primary bg-mainBrown p-4">
             <h1 className="font-supply text-xl font-bold text-primary">
               ACTIVITY FEED
             </h1>
@@ -127,7 +126,7 @@ const ChatLeftSide = ({
               <ActivityFeed activity={activity} minerName={selectedMiner.name} />
             </div>
           </div>
-          <div className="ml-2 mr-8 h-72 w-[35%] rounded-md border border-primary bg-mainBrown pt-4">
+          <div className="hidden lg:inline ml-2 mr-8 h-72 w-[35%] rounded-md border border-primary bg-mainBrown pt-4">
             <HudLines />
           </div>
         </div>
