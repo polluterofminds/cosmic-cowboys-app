@@ -123,7 +123,7 @@ const ChatLeftSide = ({
               ACTIVITY FEED
             </h1>
             <div>
-              <ActivityFeed activity={activity} minerName={selectedMiner.name} />
+              <ActivityFeed activity={activity} minerName={selectedMiner?.name} />
             </div>
           </div>
           <div className="hidden lg:inline ml-2 mr-8 h-72 w-[35%] rounded-md border border-primary bg-mainBrown pt-4">
