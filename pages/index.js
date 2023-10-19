@@ -216,6 +216,15 @@ export default function Home({ npcs, hash }) {
     await updateMessages();
   }
 
+  const tellSecret = async () => {
+    await fetch("/api/chat/secret", {
+      method: "POST", 
+      headers: {'Content-Type': 'application/json'}, 
+      body: JSON.stringify({text: "", npc: selectedMiner, address: safeAuthSignInResponse.eoa})
+    })      
+    await updateMessages();
+  }
+
   return (
     <>
       <Head>
@@ -230,7 +239,7 @@ export default function Home({ npcs, hash }) {
       <div className="pb-10 min-h-[100vh] max-w-[100%]">            
         {
           !!provider ? 
-          <MainScreen selectedTab={selectedTab} setSelectedTab={setSelectedTab} displayHelp={displayHelp} buyCreditsForNpc={buyCreditsForNpc} userInfo={userInfo} address={safeAuthSignInResponse.eoa} sendMessage={sendMessage} setChatting={setChatting} startChatting={startChatting} logout={logout} chatting={chatting} miners={miners} selectMiner={selectMiner} selectedMiner={selectedMiner} messages={messages} /> : 
+          <MainScreen tellSecret={tellSecret} selectedTab={selectedTab} setSelectedTab={setSelectedTab} displayHelp={displayHelp} buyCreditsForNpc={buyCreditsForNpc} userInfo={userInfo} address={safeAuthSignInResponse.eoa} sendMessage={sendMessage} setChatting={setChatting} startChatting={startChatting} logout={logout} chatting={chatting} miners={miners} selectMiner={selectMiner} selectedMiner={selectedMiner} messages={messages} /> : 
           <AuthScreen login={login} isLoggedIn={!!provider} setAuthenticated={setAuthenticated} />
         }
       </div>

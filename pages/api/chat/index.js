@@ -40,6 +40,7 @@ export default async function handler(req, res) {
           cidVersion: 1,
         },
       };
+      
       await uploadJson({ body, options });
 
       //  Read and send message
@@ -112,7 +113,6 @@ export default async function handler(req, res) {
       ];
 
       const { response } = await generateResponse(messages.filter((m) => !m.content.includes("***SYSTEM MESSAGE")), 1, functions);
-      console.log(response);
       if (response.function_call) {
         switch (response.function_call.name) {
           case "goToHome":

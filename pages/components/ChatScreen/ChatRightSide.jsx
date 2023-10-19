@@ -9,7 +9,8 @@ const ChatRightSide = ({
   selectedMiner,
   userInfo,
   buyCreditsForNpc,
-  displayHelp
+  displayHelp, 
+  tellSecret
 }) => {
   const [newMessage, setNewMessage] = useState("");
 
@@ -30,7 +31,10 @@ const ChatRightSide = ({
         await buyCreditsForNpc();
         setNewMessage("");
         break;
-      //  Clear message
+      case "--tell-secret":
+          await tellSecret();
+          setNewMessage("");
+          break;
       default:
         sendMessage(newMessage);
         setNewMessage("");

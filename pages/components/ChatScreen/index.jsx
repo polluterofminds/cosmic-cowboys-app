@@ -11,7 +11,8 @@ const ChatScreen = ({
   messages,
   userInfo,
   buyCreditsForNpc,
-  displayHelp
+  displayHelp, 
+  tellSecret
 }) => {
   const [activity, setActivity] = useState([]);
 
@@ -48,6 +49,7 @@ const ChatScreen = ({
             messages={messages}
             buyCreditsForNpc={buyCreditsForNpc}
             displayHelp={displayHelp}
+            tellSecret={tellSecret}
           />
         </LeftCard>
       </div>
