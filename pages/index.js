@@ -231,10 +231,17 @@ export default function Home({ npcs, hash }) {
         <title>Cosmic Cowboys</title>
         <meta
           name="description"
-          content="An adventure game in space where the active players are the NPCs."
+          content="Cosmic Cowboys is part text-adventure, part RPG, and part mind-blowing. Jack in and communicate with space cowboys stranded on Jupiter's moon Ganymede."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <meta property="twitter:image" content="https://azure-tiny-tahr-350.mypinata.cloud/ipfs/QmZmM5fYKQWH3ydZsSXi3ayCbFJNqPFL3Qs6tk5V6KwSMo"></meta>
+        <meta property="twitter:card" content="summary_large_image"></meta>
+        <meta property="twitter:title" content="Cosmic Cowboys | A Galactic Adventure Powered By NPCs"></meta>
+        <meta property="twitter:description" content="Cosmic Cowboys is part text-adventure, part RPG, and part mind-blowing. Jack in and communicate with space cowboys stranded on Jupiter's moon Ganymede."></meta>
+        <meta property="og:image" content="https://azure-tiny-tahr-350.mypinata.cloud/ipfs/QmZmM5fYKQWH3ydZsSXi3ayCbFJNqPFL3Qs6tk5V6KwSMo"></meta>
+        <meta property="og:title" content="Cosmic Cowboys | A Galactic Adventure Powered By NPCs"></meta>
+        <meta property="og:description" content="Cosmic Cowboys is part text-adventure, part RPG, and part mind-blowing. Jack in and communicate with space cowboys stranded on Jupiter's moon Ganymede." />
+        <link rel="icon" href="/favicon.png" />
       </Head>
       <div className="pb-10 min-h-[100vh] max-w-[100%]">            
         {
