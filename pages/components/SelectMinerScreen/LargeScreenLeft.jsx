@@ -60,10 +60,10 @@ const LargeScreenLeft = ({
           <LeaderboardCard />
         ) : (
           <div>
-            <div className="hidden lg:block">
+            <div className="hidden md:block">
               <Map miners={miners} />
             </div>
-            <div className="lg:hidden">
+            <div className="md:hidden">
               <MobileMap miners={miners} />
             </div>
           </div>

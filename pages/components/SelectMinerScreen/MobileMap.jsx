@@ -92,7 +92,7 @@ const MobileMap = ({ miners }) => {
         </div>
       </div>
       <div className="absolute bottom-4 right-2">
-        <GradientHeading customClasses={"text-5xl font-supply"}>GANYMEDE</GradientHeading>
+        <GradientHeading customClasses={"text-3xl font-supply"}>GANYMEDE</GradientHeading>
       </div>
     </div>
   );

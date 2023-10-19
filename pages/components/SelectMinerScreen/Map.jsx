@@ -65,7 +65,7 @@ const Map = ({ miners }) => {
           </div>
         </div>
 
-        <div className="z-60 absolute left-[390px] top-[337px]">
+        <div className="z-60 absolute left-[450px] top-[337px]">
           <div className="flex -space-x-2 overflow-hidden relative">
             {miners
               ?.filter((m) => m?.currentLocation === "Bar")
@@ -89,8 +89,8 @@ const Map = ({ miners }) => {
           </div>
         </div>
       </div>
-      <div className="absolute right-6 bottom-10">
-        <GradientHeading customClasses={"text-5xl font-supply"}>GANYMEDE</GradientHeading>
+      <div className="absolute right-0 bottom-2 lg:right-6 lg:bottom-10">
+        <GradientHeading customClasses={"lg:text-5xl text-3xl font-supply"}>GANYMEDE</GradientHeading>
       </div>
     </div>
   );
