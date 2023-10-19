@@ -1,13 +1,72 @@
 import React from "react";
 import Card from "../backgrounds/Card";
 import GradientHeading from "../Typography/GradientHeading";
+import ActivityFeed from "./ActivityFeed";
 
 const ChatLeftSide = ({
   selectedMiner,
   miners,
   setSelectedMiner,
   setChatting,
+  activity
 }) => {
+  console.log({activity});
+  const HudLines = () => {
+    return (
+      <>
+        <div className="align-center mt-2 flex items-center justify-evenly">
+          <div className="h-4 w-4 rounded-full border border-primary" />
+          <div className="h-3 w-14 rounded-lg bg-credits" />
+          <div className="h-4 w-4 rounded-full border border-primary" />
+        </div>
+        <div className="align-center mt-2 flex items-center justify-evenly">
+          <div className="h-4 w-4 rounded-full border border-primary" />
+          <div className="h-3 w-14 rounded-lg bg-credits" />
+          <div className="h-4 w-4 rounded-full border border-primary" />
+        </div>
+        <div className="align-center mt-2 flex items-center justify-evenly">
+          <div className="h-4 w-4 rounded-full border border-primary" />
+          <div className="h-3 w-14 rounded-lg bg-credits" />
+          <div className="h-4 w-4 rounded-full border border-primary" />
+        </div>
+        <div className="align-center mt-2 flex items-center justify-evenly">
+          <div className="h-4 w-4 rounded-full border border-primary" />
+          <div className="h-3 w-14 rounded-lg bg-credits" />
+          <div className="h-4 w-4 rounded-full border border-primary" />
+        </div>
+        <div className="align-center mt-2 flex items-center justify-evenly">
+          <div className="h-4 w-4 rounded-full border border-primary" />
+          <div className="h-3 w-14 rounded-lg bg-credits" />
+          <div className="h-4 w-4 rounded-full border border-primary" />
+        </div>
+        <div className="align-center mt-2 flex items-center justify-evenly">
+          <div className="h-4 w-4 rounded-full border border-primary" />
+          <div className="h-3 w-14 rounded-lg bg-credits" />
+          <div className="h-4 w-4 rounded-full border border-primary" />
+        </div>
+        <div className="align-center mt-2 flex items-center justify-evenly">
+          <div className="h-4 w-4 rounded-full border border-primary" />
+          <div className="h-3 w-14 rounded-lg bg-credits" />
+          <div className="h-4 w-4 rounded-full border border-primary" />
+        </div>
+        <div className="align-center mt-2 flex items-center justify-evenly">
+          <div className="h-4 w-4 rounded-full border border-primary" />
+          <div className="h-3 w-14 rounded-lg bg-credits" />
+          <div className="h-4 w-4 rounded-full border border-primary" />
+        </div>
+        <div className="align-center mt-2 flex items-center justify-evenly">
+          <div className="h-4 w-4 rounded-full border border-primary" />
+          <div className="h-3 w-14 rounded-lg bg-credits" />
+          <div className="h-4 w-4 rounded-full border border-primary" />
+        </div>
+        <div className="align-center mt-2 flex items-center justify-evenly">
+          <div className="h-4 w-4 rounded-full border border-primary" />
+          <div className="h-3 w-14 rounded-lg bg-credits" />
+          <div className="h-4 w-4 rounded-full border border-primary" />
+        </div>
+      </>
+    );
+  };
   return (
     <div className="mb-10 w-2/5">
       <div className="p-4">
@@ -34,17 +93,20 @@ const ChatLeftSide = ({
         <div className="hidden w-full lg:flex">
           <Card customClasses="w-[90%]">
             <div className="p-6">
-              <GradientHeading customClasses="text-3xl font-bold font-sans">
-                {selectedMiner?.name}
-              </GradientHeading>
-              <div className="no-scrollbar mt-2 max-h-[20vh] overflow-scroll">
-                {selectedMiner?.description?.split("\n").map((p, index) => {
-                  return (
-                    <p className="mt-2 text-lg text-white/60" key={index}>
-                      {p}
-                    </p>
-                  );
-                })}
+              <h1 className="font-supply text-xl font-bold text-primary">
+                {selectedMiner?.name.toUpperCase()} (LIVE VIDEO)
+              </h1>
+              <div className="no-scrollbar mt-2">
+                <div className="relative mt-2 hidden h-72 w-72 border border-primary lg:block">
+                  <div className="crt absolute z-50 h-72 w-72" />
+                  <img
+                    className="absolute z-10 h-72 w-72 border border-b-primary border-l-primary border-r-primary border-t-transparent"
+                    src={`https://${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${
+                      selectedMiner?.image?.split("://")[1]
+                    }`}
+                    alt="Radar"
+                  />
+                </div>
               </div>
             </div>
           </Card>
@@ -55,11 +117,19 @@ const ChatLeftSide = ({
             <div className="mb-[5px] h-6 w-6 rounded-full border-[0.5px] border-primary" />
           </div>
         </div>
-        <div className="mt-2 h-72 w-72 ml-8 relative hidden lg:block border border-primary">
-          <div className="w-full bg-mainBrown text-center"><p className="font-sans text-md text-white">Live video</p></div>
-          <div className="h-72 w-72 absolute z-50 crt" />
-          <img className="h-72 w-72 absolute z-10 border border-b-primary border-l-primary border-r-primary border-t-transparent" src={`https://${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${selectedMiner?.image?.split("://")[1]}`} alt="Radar" />
-          {/* <img className="mr-8 h-72" src="/HUD.png" alt="Radar" /> */}
+
+        <div className="mt-2 flex w-full">
+          <div className="no-scrollbar max-h-72 w-[65%] overflow-scroll rounded-md border border-primary bg-mainBrown p-4">
+            <h1 className="font-supply text-xl font-bold text-primary">
+              ACTIVITY FEED
+            </h1>
+            <div>
+              <ActivityFeed activity={activity} minerName={selectedMiner.name} />
+            </div>
+          </div>
+          <div className="ml-2 mr-8 h-72 w-[35%] rounded-md border border-primary bg-mainBrown pt-4">
+            <HudLines />
+          </div>
         </div>
       </div>
     </div>

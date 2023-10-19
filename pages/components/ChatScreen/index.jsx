@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ChatLeftSide from "./ChatLeftSide";
 import ChatRightSide from "./ChatRightSide";
 import LeftCard from "../backgrounds/LeftCard";
@@ -13,6 +13,24 @@ const ChatScreen = ({
   buyCreditsForNpc,
   displayHelp
 }) => {
+  const [activity, setActivity] = useState([]);
+
+  useEffect(() => {
+    loadActivity();
+  }, []);
+
+  const loadActivity = async () => {
+    try {
+      debugger;
+      const res = await fetch(`/api/chat/activity?npcId=${selectedMiner.tokenId}`)
+      const json = await res.json();
+      console.log(json);
+      setActivity(json);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div className="min-h-[65vh] pb-16 lg:pt-0 pt-32">
       {/* Large View */}
@@ -21,6 +39,7 @@ const ChatScreen = ({
           <ChatLeftSide
             selectedMiner={selectedMiner}
             setChatting={setChatting}
+            activity={activity}
           />
           <ChatRightSide
             userInfo={userInfo}

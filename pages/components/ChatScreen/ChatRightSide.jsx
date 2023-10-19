@@ -39,8 +39,8 @@ const ChatRightSide = ({
   };
   return (
     <div className="h-full w-full lg:w-3/5">
-      <div className="mt-6 rounded-lg border border-primary bg-mainBrown lg:mb-20 lg:ml-4">
-        <div className="flex max-h-[85%] min-h-[65vh] flex-col justify-end">
+      <div className="rounded-lg border border-primary bg-mainBrown lg:mb-20 lg:ml-4">
+        <div className="min-h-[85vh] flex max-h-[85%] min-h-[65vh] flex-col justify-end align-end">
           <Messages
             userInfo={userInfo}
             messages={messages}
@@ -59,14 +59,6 @@ const ChatRightSide = ({
                 autoFocus={true}
                 onKeyDown={handleKeyDown}
               />
-              {/* <button
-                type="button"
-                onClick={handleSend}
-                className="hover:bg-grey-500 ml-2 inline-flex w-1/4 items-center justify-center gap-x-2 rounded-md bg-btnPrimary px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm outline-none"
-              >
-                <RocketIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
-                <span className="text-2xl">SEND</span>
-              </button> */}
             </div>
           </div>
         </div>
