@@ -19,7 +19,8 @@ const MainScreen = ({
   displayHelp, 
   selectedTab,
   setSelectedTab, 
-  tellSecret
+  tellSecret, 
+  getAddressInfo
 }) => {
   return (
     <div>
@@ -42,6 +43,7 @@ const MainScreen = ({
           buyCreditsForNpc={buyCreditsForNpc}
           displayHelp={displayHelp}
           tellSecret={tellSecret}
+          getAddressInfo={getAddressInfo}
         />
       ) : (
         <SelectMinerScreen

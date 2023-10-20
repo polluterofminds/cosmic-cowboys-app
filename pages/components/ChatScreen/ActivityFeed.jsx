@@ -5,13 +5,13 @@ const ActivityFeed = ({ activity, minerName }) => {
     return classes.filter(Boolean).join(" ");
   }
 
-  const getName = (activityItem) => {
+  const getName = (activityItem) => {    
     if (
       activityItem?.content.includes(
         "Your contribution will help ensure this miner survives another day on Ganymede"
       )
     ) {
-      return "You";
+      return "Someone";
     } else {
       return minerName;
     }
@@ -37,8 +37,7 @@ const ActivityFeed = ({ activity, minerName }) => {
         return "launched a supply mission.";
       }
 
-      if (activityItem?.content.includes("goToSupplyDepot")) {
-        console.log("HERE");
+      if (activityItem?.content.includes("goToSupplyDepot")) {        
         return "visited the supply depot.";
       }
       return "";

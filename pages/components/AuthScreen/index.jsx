@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LeftCard from "../backgrounds/LeftCard";
 import GradientHeading from "../Typography/GradientHeading";
 import WelcomeLines from "../WelcomeLines";
 import Card from "../backgrounds/Card";
+import TrailerModal from "./TrailerModal";
 
 const AuthScreen = ({ setAuthenticated, login, logout, userInfo, isLoggedIn }) => {
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    const trailerPlayed = localStorage.getItem("cc-trailer-played");
+    if(!trailerPlayed) {
+      setOpen(true);
+      localStorage.setItem("cc-trailer-played", "true");
+    }
+  }, []);
   return (
     <div className="align-center m-auto flex lg:flex-row flex-col h-screen w-3/4 items-center justify-center">
       <div className="lg:w-1/2">
@@ -49,6 +58,7 @@ const AuthScreen = ({ setAuthenticated, login, logout, userInfo, isLoggedIn }) =
           </div>
         </LeftCard>
       </div>
+      <TrailerModal open={open} setOpen={setOpen} />
     </div>
   );
 };

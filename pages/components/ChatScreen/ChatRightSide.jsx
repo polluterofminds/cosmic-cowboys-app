@@ -9,8 +9,9 @@ const ChatRightSide = ({
   selectedMiner,
   userInfo,
   buyCreditsForNpc,
-  displayHelp, 
-  tellSecret
+  displayHelp,
+  tellSecret,
+  getAddressInfo,
 }) => {
   const [newMessage, setNewMessage] = useState("");
 
@@ -32,9 +33,13 @@ const ChatRightSide = ({
         setNewMessage("");
         break;
       case "--tell-secret":
-          await tellSecret();
-          setNewMessage("");
-          break;
+        await tellSecret();
+        setNewMessage("");
+        break;
+      case "--wallet":
+        await getAddressInfo();
+        setNewMessage("");
+        break;
       default:
         sendMessage(newMessage);
         setNewMessage("");
@@ -42,9 +47,9 @@ const ChatRightSide = ({
     }
   };
   return (
-    <div className="h-full w-full lg:w-3/5">
-      <div className="rounded-lg border border-primary bg-mainBrown lg:mb-20 lg:ml-4">
-        <div className="min-h-[85vh] flex max-h-[85%] min-h-[65vh] flex-col justify-end align-end">
+    <div className="w-full lg:w-3/5">
+      <div className="rounded-lg border border-primary bg-mainBrown lg:ml-4">
+        <div className="align-end m-auto flex max-h-[60vh] min-h-[15vh] flex-col justify-end">
           <Messages
             userInfo={userInfo}
             messages={messages}
