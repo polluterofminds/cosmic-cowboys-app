@@ -1,4 +1,4 @@
-import { generateResponse } from "@/services/aiService";
+import { createEmbedding, generateResponse } from "@/services/aiService";
 import { Client } from "@xmtp/xmtp-js";
 import { uploadJson } from "@/services/storage";
 import {
@@ -22,26 +22,7 @@ const wallet = new ethers.Wallet(
 export default async function handler(req, res) {
   if (req.method === "POST") {
     try {
-      const { npc, text, address } = req.body;
-      //  Store message data
-      const body = {
-        npcId: npc.tokenId,
-        text,
-      };
-      const options = {
-        pinataMetadata: {
-          name: `Conversation Input for NPC ${npc.tokenId}`,
-          keyvalues: {
-            ccci: "true",
-            npcId: npc.tokenId,
-          },
-        },
-        pinataOptions: {
-          cidVersion: 1,
-        },
-      };
-      
-      await uploadJson({ body, options });
+      const { npc, text, address } = req.body;     
 
       //  Read and send message
       const tokenboundClient = new TokenboundClient({
@@ -70,8 +51,6 @@ export default async function handler(req, res) {
           };
         }
       });
-
-      //  Try to keep the system context strong by trimming the conversation history
 
       //  The AI may choose to execute a function if the input is strong enough
       const functions = availableFunctions.map((f) => {
@@ -142,14 +121,32 @@ export default async function handler(req, res) {
         console.log(`Action taken: ${response.function_call.name}`);
         await conversation.send(
           `${npc.tokenId} - Action taken: ${response.function_call.name}`
-        );
+        );        
         //  @TODO Reward the player for triggering a function call
         await conversation.send(`${npc.tokenId} - \n***SYSTEM MESSAGE***\nThe government thanks you for contributing to the safety of our miners and has rewarded you for your effort.\n***END SYSTEM MESSAGE***`)
         fetch(`${process.env.HOSTED_URL}/api/getNpc`);
       } else {
-        await conversation.send(response.content);
+        await conversation.send(response.content);        
       }
 
+      // const body = {
+      //   playerEmbedding, 
+      //   npcEmbedding
+      // };
+      // const options = {
+      //   pinataMetadata: {
+      //     name: `Embedding Input for NPC ${npc.tokenId}`,
+      //     keyvalues: {
+      //       ccce: "true",
+      //       npcId: npc.tokenId,
+      //     },
+      //   },
+      //   pinataOptions: {
+      //     cidVersion: 1,
+      //   },
+      // };
+      
+      // await uploadJson({ body, options });
       res.json(response);
     } catch (error) {
       console.log(error);

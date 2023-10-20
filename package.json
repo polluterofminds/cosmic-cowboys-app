@@ -20,6 +20,7 @@
     "@web3auth/openlogin-adapter": "^4.3.0",
     "@xmtp/xmtp-js": "^11.1.1",
     "alchemy-sdk": "^2.10.1",
+    "bageldb-beta": "^1.0.24",
     "ethers": "^6.7.1",
     "next": "13.5.4",
     "openai": "^4.11.1",
