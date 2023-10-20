@@ -15,7 +15,7 @@ const Messages = ({ messages, selectedMiner, address, userInfo }) => {
             return (
               <div className="w-full flex align-start justify-start mt-2" key={index}>
                 <div className="font-sans">
-                 <p className="text-[#FFCC00] whitespace-break-spaces">{m.content.includes("***SYSTEM MESSAGE") ? "System" : "Me"} : {" "}{m.content.split(`${selectedMiner.tokenId} -`)[1]}</p>
+                 <p className="text-[#FFBF9B] whitespace-break-spaces">{m.content.includes("***SYSTEM MESSAGE") ? "System" : "Me"} : {" "}{m.content.split(`${selectedMiner.tokenId} -`)[1]}</p>
                  <p className="text-primary">// End Transmission</p>
                   {/* <img className="ml-2 w-8 h-8 rounded-full" referrerPolicy="no-referrer" src={userInfo.profileImage || placeholderAvatar} alt={address}/>                   */}
                 </div>

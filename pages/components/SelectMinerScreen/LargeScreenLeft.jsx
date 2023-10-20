@@ -24,33 +24,33 @@ const LargeScreenLeft = ({
           aria-label="button"
           className={
             selectedTab === "dashboard"
-              ? "mr-1 cursor-pointer rounded-t-md border border-primary bg-primary px-2 lg:px-8 py-1 text-main"
-              : "mr-1 cursor-pointer rounded-t-md border border-primary bg-mainBrown px-2 lg:px-8 py-1 text-primary"
+              ? "mr-1 cursor-pointer rounded-t-md border border-primary bg-primary px-2 lg:px-4 xl:px-8 py-1 text-main"
+              : "mr-1 cursor-pointer rounded-t-md border border-primary bg-mainBrown px-2 lg:px-4 xl:px-8 py-1 text-primary"
           }
         >
-          <h3 className="lg:text-lg text-md font-supply">DASHBOARD</h3>
+          <h3 className="lg:text-sm xl:text-lg text-md font-supply">DASHBOARD</h3>
         </div>
         <div
           onClick={() => setSelectedTab("leaderboard")}
           aria-label="button"
           className={
             selectedTab === "leaderboard"
-              ? "mr-1 cursor-pointer rounded-t-md border border-primary bg-primary px-2 lg:px-8 py-1 text-main"
-              : "mr-1 cursor-pointer rounded-t-md border border-primary bg-mainBrown px-2 lg:px-8 py-1 text-primary"
+              ? "mr-1 cursor-pointer rounded-t-md border border-primary bg-primary px-2 lg:px-4 xl:px-8 py-1 text-main"
+              : "mr-1 cursor-pointer rounded-t-md border border-primary bg-mainBrown px-2 lg:px-4 xl:px-8 py-1 text-primary"
           }
         >
-          <h3 className="lg:text-lg text-md font-supply">LEADERBOARD</h3>
+          <h3 className="lg:text-sm xl:text-lg text-md font-supply">LEADERBOARD</h3>
         </div>
         <div
           onClick={() => setSelectedTab("map")}
           aria-label="button"
           className={
             selectedTab === "map"
-              ? "cursor-pointer rounded-t-md border border-primary bg-primary px-2 lg:px-8 py-1 text-main"
-              : "cursor-pointer rounded-t-md border border-primary bg-mainBrown px-2 lg:px-8 py-1 text-primary"
+              ? "cursor-pointer rounded-t-md border border-primary bg-primary px-2 lg:px-4 xl:px-8 py-1 text-main"
+              : "cursor-pointer rounded-t-md border border-primary bg-mainBrown px-2 lg:px-4 xl:px-8 py-1 text-primary"
           }
         >
-          <h3 className="lg:text-lg text-md font-supply">MAP</h3>
+          <h3 className="lg:text-sm xl:text-lg text-md font-supply">MAP</h3>
         </div>
       </div>
       <LeftCard customClasses="min-h-[60vh]">

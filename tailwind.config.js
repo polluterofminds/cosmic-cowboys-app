@@ -25,7 +25,8 @@ module.exports = {
         "btnPrimary": "#121212", 
         "cardBackground": "#7A4824", 
         "mainBrown": "#61391c", 
-        "credits":"#FFAE19"
+        "credits":"#FFAE19", 
+        "terminal": "#111826"
       }, 
       backgroundImage: {
         'main-pattern': "url('/MainBackground.svg')", 

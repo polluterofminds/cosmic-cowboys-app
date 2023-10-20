@@ -48,7 +48,7 @@ const ChatRightSide = ({
   };
   return (
     <div className="w-full lg:w-3/5">
-      <div className="rounded-lg border border-primary bg-mainBrown lg:ml-4">
+      <div className="rounded-lg border border-primary bg-terminal lg:ml-4">
         <div className="align-end m-auto flex max-h-[60vh] min-h-[15vh] flex-col justify-end">
           <Messages
             userInfo={userInfo}
@@ -63,7 +63,7 @@ const ChatRightSide = ({
                 type="text"
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
-                className="ml-2 w-full bg-mainBrown text-[#FFCC00] outline-none"
+                className="ml-2 w-full bg-terminal text-[#FFCC00] outline-none"
                 placeholder="Try to reach your miner..."
                 autoFocus={true}
                 onKeyDown={handleKeyDown}
