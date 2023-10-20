@@ -3,21 +3,30 @@ import LeftCard from "../backgrounds/LeftCard";
 import GradientHeading from "../Typography/GradientHeading";
 import WelcomeLines from "../WelcomeLines";
 import Card from "../backgrounds/Card";
-import TrailerModal from "./TrailerModal";
+import VideoModal from "./VideoModal";
 
 const AuthScreen = ({ setAuthenticated, login, logout, userInfo, isLoggedIn }) => {
   const [open, setOpen] = useState(false);
   useEffect(() => {
     const trailerPlayed = localStorage.getItem("cc-trailer-played");
-    if(!trailerPlayed) {
+    if (!trailerPlayed) {
       setOpen(true);
       localStorage.setItem("cc-trailer-played", "true");
     }
   }, []);
   return (
-    <div className="align-center m-auto flex lg:flex-row flex-col h-screen w-3/4 items-center justify-center">
-      <div className="lg:w-1/2">
-        <img src="/Logo.png" alt="Cosmic Cowboys" className="lg:h-96 h-64 lg:ml-0 -ml-8" />
+    <div className="align-center m-auto flex lg:flex-row flex-col h-screen w-3/4 items-center justify-center gap-6">
+      <div className="lg:w-1/2 w-full">
+        <VideoModal
+          thumb="https://dweb.mypinata.cloud/ipfs/Qmdhj8FfQbd8V3BGGCo3zFnjZxJ8DWT2ewFtvW9if6XBzV?filename=thumb.png"
+          thumbWidth={768}
+          thumbHeight={432}
+          thumbAlt="Modal video thumbnail"
+          video="https://azure-tiny-tahr-350.mypinata.cloud/ipfs/QmNrYxko4KmHBFJ1yJvgm6uQtrewgEi14kc1v9MUwAX2nE"
+          videoWidth={1920}
+          videoHeight={1080}
+        />
+
       </div>
       <div className="lg:w-1/2 w-full">
         <LeftCard customClasses="p-6 border-b-lg">
@@ -58,7 +67,6 @@ const AuthScreen = ({ setAuthenticated, login, logout, userInfo, isLoggedIn }) =
           </div>
         </LeftCard>
       </div>
-      <TrailerModal open={open} setOpen={setOpen} />
     </div>
   );
 };
