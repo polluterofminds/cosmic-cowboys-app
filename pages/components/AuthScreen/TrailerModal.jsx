@@ -4,7 +4,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline'
 
 export default function TrailerModal({ open, setOpen }) {
   return (
-    <Transition.Root show={open} as={Fragment}>
+    <Transition.Root show={open || false} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
         <Transition.Child
           as={Fragment}
