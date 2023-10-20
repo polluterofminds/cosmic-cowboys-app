@@ -15,7 +15,7 @@ const AuthScreen = ({ setAuthenticated, login, logout, userInfo, isLoggedIn }) =
     }
   }, []);
   return (
-    <div className="align-center m-auto flex-col h-screen w-full items-center justify-center">
+    <div className="align-center m-auto flex-col min-h-screen w-full items-center justify-center">
       <div>
         <img src="/Logo.png" className="md:w-96 w-1/2 pb-20" alt="cosmic cowboys logo" />
       </div>
