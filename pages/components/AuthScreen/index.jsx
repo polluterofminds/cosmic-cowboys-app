@@ -22,7 +22,7 @@ const AuthScreen = ({ setAuthenticated, login, logout, userInfo, isLoggedIn }) =
       <div className="align-center m-auto flex lg:flex-row flex-col w-3/4 items-center justify-center gap-6">
         <div className="lg:w-1/2 w-full">
           <VideoModal
-            thumb="https://dweb.mypinata.cloud/ipfs/Qmdhj8FfQbd8V3BGGCo3zFnjZxJ8DWT2ewFtvW9if6XBzV?filename=thumb.png"
+            thumb="https://dweb.mypinata.cloud/ipfs/QmPSABo6QS4Gkwqn34SVJDVN8BEWwzC6tF2zamUCju7Ka6?filename=thumb.png"
             thumbWidth={768}
             thumbHeight={432}
             thumbAlt="Modal video thumbnail"

@@ -20,7 +20,7 @@ export default function ModalVideo({
 
       {/* Video thumbnail */}
       <button
-        className="relative flex justify-center items-center focus:outline-none rounded-3xl group"
+        className="relative hover:scale-105 transition-all duration-300 ease-in-out flex justify-center items-center focus:outline-none rounded-3xl group"
         onClick={() => { setModalOpen(true) }}
         aria-label="Watch the video"
       >

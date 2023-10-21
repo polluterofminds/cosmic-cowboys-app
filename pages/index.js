@@ -255,7 +255,7 @@ export default function Home({ npcs, hash }) {
     );
     const signer = await provider.getSigner();
     const balance = await getBalanceInEth();
-  
+
     if (parseFloat(balance, 10) < 0.005) {
       await xmtpConversation.send(
         `${selectedMiner.tokenId} - \n***SYSTEM MESSAGE***\nYou do not have enough funds to buy credits for this miner. You must have at least 0.005 eth.\n***END SYSTEM MESSAGE***`
