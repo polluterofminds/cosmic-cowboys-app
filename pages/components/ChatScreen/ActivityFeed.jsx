@@ -69,10 +69,10 @@ const ActivityFeed = ({ activity, minerName }) => {
             </div>
             <div>
               <p className="flex-auto text-xs leading-5 text-primary">
-                <span className="font-medium text-primary">
+                <span className="font-medium text-primary text-lg">
                   {getName(activityItem)}
                 </span>{" "}
-                <span className="text-credits">{getAction(activityItem)}</span>
+                <span className="text-credits text-lg">{getAction(activityItem)}</span>
               </p>
               <time
                 dateTime={activityItem?.date}

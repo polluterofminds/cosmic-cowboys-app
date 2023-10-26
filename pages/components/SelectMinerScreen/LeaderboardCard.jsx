@@ -17,10 +17,10 @@ const LeaderboardCard = () => {
     <div className="flex">
       <div className="mt-4 w-[90%] p-4">
         <Card customClasses="p-4">
-          <p className="font-sans text-lg font-semibold text-white/60">
+          <p className="font-sans text-2xl font-semibold text-white/60">
             We want our miners to come home, but we also want to understand the sociological impact of life on space. To that end, we are monitoring progress and societal power for each miner.
           </p>
-          <p className="font-sans text-lg font-semibold text-white/60">Please follow along and see if your miner can climb the leaderboard of societal power. As a reminder: power is the combination of health, food, supplies, and credits.</p>
+          <p className="font-sans text-2xl font-semibold text-white/60">Please follow along and see if your miner can climb the leaderboard of societal power. As a reminder: power is the combination of health, food, supplies, and credits.</p>
         </Card>
       </div>
       <div className="align-center mt-4 flex w-[10%] flex-col justify-center">

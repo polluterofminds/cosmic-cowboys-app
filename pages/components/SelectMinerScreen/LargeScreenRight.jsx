@@ -41,7 +41,7 @@ const LargeScreenRight = ({
               <span className="text-xl">ENGAGE</span>
             </button>
           </div>
-          <div className="pre-wrap mt-6 font-sans text-lg font-semibold text-white/60 lg:ml-2 lg:mr-10 lg:text-xl">
+          <div className="pre-wrap mt-6 font-sans text-lg font-semibold text-white/60 lg:ml-2 lg:mr-10 lg:text-2xl">
             {selectedMiner?.description?.split("\n").map((p, index) => {
               return (
                 <p className="mb-2" key={index}>

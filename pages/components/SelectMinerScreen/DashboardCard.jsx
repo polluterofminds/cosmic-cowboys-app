@@ -18,7 +18,7 @@ const DashboardCard = ({ miners, selectMiner, handleSelect }) => {
       <div className="flex">
         <div className="mt-4 w-[90%] p-4">
           <Card customClasses="p-4">
-            <p className="font-sans text-lg font-semibold text-white/60">
+            <p className="font-sans text-2xl font-semibold text-white/60">
               This is your terminal dashboard. Choose a miner to communicate
               with. Miners are sorted by credits as credits are the best
               indicator for success on Ganymede.
