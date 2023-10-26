@@ -58,12 +58,12 @@ const ChatRightSide = ({
           />
           <div className="h-full">
             <div className="flex px-4 pb-4">
-              <p className="text-[#FFCC00]">Me: </p>
+              <p className="text-xl text-[#FFCC00]">Me: </p>
               <input
                 type="text"
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
-                className="ml-2 w-full bg-terminal text-[#FFCC00] outline-none"
+                className="text-xl ml-2 w-full bg-terminal text-[#FFCC00] outline-none"
                 placeholder="Try to reach your miner..."
                 autoFocus={true}
                 onKeyDown={handleKeyDown}

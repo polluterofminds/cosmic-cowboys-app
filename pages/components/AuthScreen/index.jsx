@@ -44,7 +44,7 @@ const AuthScreen = ({ setAuthenticated, login, logout, userInfo, isLoggedIn }) =
             </div>
             <div className="mb-6 mt-6 flex">
               <Card>
-                <div className="p-4 font-sans text-xl font-semibold text-white/60">
+                <div className="p-4 font-sans text-2xl font-semibold text-white/60">
                   <p>
                     This terminal link is not officially sanctioned, but it's also
                     not officially NOT sanctioned.
