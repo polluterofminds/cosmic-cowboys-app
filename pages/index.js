@@ -23,6 +23,7 @@ const connectedHandler = (data) => console.log("CONNECTED", data);
 const disconnectedHandler = (data) => console.log("DISCONNECTED", data);
 
 export default function Home({ npcs, hash }) {
+  console.log({ cachedIndex: hash });
   const [authenticated, setAuthenticated] = useState(null);
   const [miners, setMiners] = useState(npcs);
   const [selectedMiner, setSelectedMiner] = useState(npcs[0]);
@@ -140,6 +141,7 @@ export default function Home({ npcs, hash }) {
           a?.credits < b?.credits ? 1 : b?.credits < a?.credits ? -1 : 0
         )
       );
+      setCachedIndexHash(hash);
     } else {
       console.log("No updates");
     }
@@ -373,6 +375,7 @@ export default function Home({ npcs, hash }) {
 
 export async function getStaticProps() {
   const { hash, mergedNpcData } = await getNPCState();
+  console.log({hash});
   return {
     props: {
       hash,
